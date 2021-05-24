@@ -1,0 +1,37 @@
+{
+  "name": "thuc-tap-chuyen-mon",
+  "version": "1.0.0",
+  "description": "Bài báo cáo thực tập chuyên môn",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alikuxac/59591071092-ThucTapChuyenMon.git"
+  },
+  "keywords": [
+    "thuc-tap",
+    "discord",
+    "discordjs",
+    "thuc-tap-chuyen-mon"
+  ],
+  "author": "Alikuxac - 5951071092",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alikuxac/59591071092-ThucTapChuyenMon/issues"
+  },
+  "homepage": "https://github.com/alikuxac/59591071092-ThucTapChuyenMon#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "cors": "^2.8.5",
+    "discord.js": "^12.5.3",
+    "discord.js-commando": "^0.12.3",
+    "dotenv": "^10.0.0",
+    "erela.js": "^2.3.3",
+    "express": "^4.17.1",
+    "helmet": "^4.6.0",
+    "mongodb": "^3.6.8",
+    "winston": "^3.3.3"
+  }
+}
