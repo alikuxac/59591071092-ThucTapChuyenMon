@@ -1,0 +1,17 @@
+{
+  "premium": {
+    "status": false,
+    "bought": [],
+    "end": ""
+  },
+  "leveling": {
+    "server": {},
+    "xpannounce": true
+  },
+  "money": {
+    "credits": 0,
+    "bank": 0
+  },
+  "queue": {},
+  "userID": ""
+}

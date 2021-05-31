@@ -1,0 +1,36 @@
+{
+  "guildID": "",
+  "leveling": {
+    "settings": {
+      "minxp": 5,
+      "maxxp": 10,
+      "cooldown": 90000
+    },
+    "rolereward": {},
+    "xpexclude": {
+      "role": [],
+      "user": [],
+      "channel": [],
+      "category": []
+    }
+  },
+  "badword": {
+    "status": false,
+    "list": []
+  },
+  "modlog": {
+    "status": false,
+    "channel": ""
+  },
+  "joinleave": {
+    "status": false,
+    "channel": ""
+  },
+  "language": "en-US",
+  "premium": {
+    "status": false,
+    "bought": [],
+    "end": ""
+  },
+  "cooldown":{}
+}

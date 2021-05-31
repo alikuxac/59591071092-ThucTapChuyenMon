@@ -1,0 +1,15 @@
+{
+  "premium": {
+    "keys": {
+      "numberofuserkeys": 0,
+      "numberofguildkeys": 0,
+      "redeemeduserkeys": [],
+      "redeemedguildkeys": [],
+      "guildkeys": [],
+      "userkeys": []
+    }
+  },
+  "banlist": [],
+  "blacklist": [],
+  "cooldowns": {}
+}
