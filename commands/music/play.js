@@ -69,13 +69,11 @@ module.exports = class PlayCMD extends Command {
                     newplayer.connect();
                     newplayer.set("playerauthor", message.author.id);
                     newplayer.play();
-                    if (this.client.manager.util.ismanangerchannel(this.client, newplayer.textChannel)) this.client.manager.util.edit_manager_message_playing(this.client, newplayer);
+                    
                 } else {
                     if (!newplayer.playing) {
                         newplayer.play();
-                    } else if (this.client.manager.util.ismanangerchannel(this.client, newplayer.textChannel) && newplayer.playing) {
-                        this.client.manager.util.add_song_to_queue(this.client, newplayer);
-                    }
+                    } 
                 }
                 break;
             case 'PLAYLIST_LOADED':
@@ -86,13 +84,11 @@ module.exports = class PlayCMD extends Command {
                     newplayer.connect();
                     newplayer.set("playerauthor", message.author.id);
                     newplayer.play();
-                    if (this.client.manager.util.ismanangerchannel(this.client, newplayer.textChannel)) this.client.manager.util.edit_manager_message_playing(this.client, newplayer);
+                    
                 } else {
                     if (!newplayer.playing) {
                         newplayer.play();
-                    } else if (this.client.manager.util.ismanangerchannel(this.client, newplayer.textChannel) && newplayer.playing) {
-                        this.client.manager.util.add_song_to_queue(this.client, newplayer);
-                    }
+                    } 
                 }
                 break;
             case 'SEARCH_RESULT':
@@ -137,13 +133,11 @@ module.exports = class PlayCMD extends Command {
                     newplayer.connect();
                     newplayer.set("playerauthor", message.author.id);
                     newplayer.play();
-                    if (this.client.manager.util.ismanangerchannel(this.client, newplayer.textChannel)) this.client.manager.util.edit_manager_message_playing(this.client, newplayer);
+                    
                 } else {
                     if (!newplayer.playing) {
                         newplayer.play();
-                    } else if (this.client.manager.util.ismanangerchannel(this.client, newplayer.textChannel) && newplayer.playing) {
-                        this.client.manager.util.add_song_to_queue(this.client, newplayer);
-                    }
+                    } 
                 }
                 break;
             default:
