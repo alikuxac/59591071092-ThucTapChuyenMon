@@ -6,9 +6,9 @@ module.exports = async (client) => {
         .catch(console.error);
 
     // Sets the prefix for every guild
-    for (let i = 0; i < client.guilds.array().length; i += 1) {
-        if (client.provider.getGuild(client.guilds.array()[i].id, "prefix")) {
-            client.guilds.array()[i]._commandPrefix = client.provider.getGuild(client.guilds.array()[i].id, "prefix");
+    for (let i = 0; i < client.guilds.cache.array().length; i += 1) {
+        if (client.provider.getGuild(client.guilds.cache.array()[i].id, "prefix")) {
+            client.guilds.cache.array()[i]._commandPrefix = client.provider.getGuild(client.guilds.cache.array()[i].id, "prefix");
         }
     }
 }
