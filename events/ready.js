@@ -5,4 +5,10 @@ module.exports = async (client) => {
         .then(presence => console.log(`Activity set to ${presence.activities[0].name}`))
         .catch(console.error);
 
+    // Sets the prefix for every guild
+    for (let i = 0; i < client.guilds.array().length; i += 1) {
+        if (client.provider.getGuild(client.guilds.array()[i].id, "prefix")) {
+            client.guilds.array()[i]._commandPrefix = client.provider.getGuild(client.guilds.array()[i].id, "prefix");
+        }
+    }
 }

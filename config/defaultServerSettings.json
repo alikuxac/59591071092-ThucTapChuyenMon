@@ -33,5 +33,6 @@
     "bought": [],
     "end": ""
   },
-  "cooldown":{}
+  "cooldown":{},
+  "prefix": ""
 }
