@@ -62,7 +62,8 @@ module.exports = class RoleRewardCMD extends Command {
                             waitMsg.edit(`Reset successful`);
                             rrSettings = {};
                             allsettings["rolereward"] = rrSettings;
-                            await message.client.provider.setGuild(message.guild.id, "leveling", allsettings);
+                            message.client.provider.setGuild(message.guild.id, "leveling", allsettings);
+                            message.channel.send("Reset successful.");
                         } catch (err) {
                             waitMsg.edit(`Error occured while restartting default setting`);
                             this.client.logger.error(err)
@@ -89,7 +90,7 @@ module.exports = class RoleRewardCMD extends Command {
                 try {
                     rrSettings[addlevel] = role.id.toString()
                     allsettings["rolereward"] = rrSettings;
-                    await message.client.provider.setGuild(message.guild.id, "leveling", allsettings);
+                    message.client.provider.setGuild(message.guild.id, "leveling", allsettings);
                     message.channel.send(`Successfully set the role  \`${role.name}\` to be given at the level ${addlevel}.`)
                 } catch (err) {
                     this.client.logger.error(err)
@@ -103,7 +104,7 @@ module.exports = class RoleRewardCMD extends Command {
                 try {
                     delete rrSettings[dellevel]
                     allsettings["rolereward"] = rrSettings;
-                    await message.client.provider.setGuild(message.guild.id, "leveling", allsettings);
+                    message.client.provider.setGuild(message.guild.id, "leveling", allsettings);
                     message.channel.send(`Successfully removed the role reward from the level ${dellevel}.`)
                 } catch (err) {
                     client.logger.error(err);
