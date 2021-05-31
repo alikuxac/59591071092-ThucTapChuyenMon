@@ -56,13 +56,13 @@ module.exports = async (client, message) => {
         await message.client.provider.setBotconfsComplete("botconfs", botsettingskeys);
     }
 
-    if (!client.provider.getGuild(message.guild.id, "cooldowns")[message.author.id]) {
+    if (!client.provider.getGuild(message.guild.id, "cooldown")[message.author.id]) {
         const currentCooldowns = client.provider.getGuild(message.guild.id, "cooldowns");
         currentCooldowns[message.author.id] = {};
         await client.provider.setGuild(message.guild.id, "cooldowns", currentCooldowns);
     }
 
-    let cooldowns = client.provider.getGuild(message.guild.id, "cooldowns");
+    let cooldowns = client.provider.getGuild(message.guild.id, "cooldown");
     let xpcld = false;
     let xp = client.provider.getUser(message.author.id, "leveling");
     let serverXP = xp["server"][message.guild.id];
@@ -91,7 +91,7 @@ module.exports = async (client, message) => {
             xpcld = true;
         } else {
             cooldown[message.author.id]["xp"] = nextexpirationTime;
-            await client.provider.setGuild(message.guild.id, "cooldowns", cooldown);
+            await client.provider.setGuild(message.guild.id, "cooldown", cooldown);
         }
     }
 
