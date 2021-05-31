@@ -1,5 +1,4 @@
 const Command = require('../../structures/Command');
-const { autoplay } = require('../../handlers/music/MusicFunction');
 
 module.exports = class SkipCMD extends Command {
     constructor(client) {
@@ -31,7 +30,7 @@ module.exports = class SkipCMD extends Command {
             });
         if (player.queue.size == 0) {
             //if its on autoplay mode, then do autoplay before leaving...
-            if (player.get("autoplay")) return autoplay(client, player, "skip");
+            if (player.get("autoplay")) return this.client.manager.util.autoplay(this.client, player);
             //stop playing
             player.destroy();
 
