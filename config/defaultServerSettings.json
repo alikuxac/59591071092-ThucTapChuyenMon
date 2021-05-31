@@ -12,7 +12,8 @@
       "user": [],
       "channel": [],
       "category": []
-    }
+    },
+    "message": ""
   },
   "badword": {
     "status": false,
