@@ -3,7 +3,7 @@ const Client = require("./structures/Client");
 const exec = require("child_process").exec;
 
 const client = new Client({
-    commandPrefix: "!!",
+    commandPrefix: process.env.PREFIX,
     owner: process.env.OWNERS.split(","),
     invite: process.env.INVITE,
     ws: {
