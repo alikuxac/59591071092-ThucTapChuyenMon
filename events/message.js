@@ -59,7 +59,7 @@ module.exports = async (client, message) => {
     if (!client.provider.getGuild(message.guild.id, "cooldown")[message.author.id]) {
         const currentCooldowns = client.provider.getGuild(message.guild.id, "cooldowns");
         currentCooldowns[message.author.id] = {};
-        await client.provider.setGuild(message.guild.id, "cooldowns", currentCooldowns);
+        await client.provider.setGuild(message.guild.id, "cooldown", currentCooldowns);
     }
 
     let cooldowns = client.provider.getGuild(message.guild.id, "cooldown");
@@ -112,5 +112,11 @@ module.exports = async (client, message) => {
 
             message.channel.send(`GG <@${message.author.id}>, you just advanced to level ${nextlvl}!`);
         }
+    }
+
+    const bwSettings = client.provider.getGuild(message.guild.id, "badword");
+    if (bwSettings.status && message.content && new RegExp(bwSettings.list.join("|")).text(message.content)) {
+        message.reply("bad word detected, be careful");
+        message.delete({ timeout: 1000 })
     }
 }
