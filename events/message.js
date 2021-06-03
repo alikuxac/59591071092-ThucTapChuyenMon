@@ -84,13 +84,13 @@ module.exports = async (client, message) => {
     }
 
     if (cooldowns[message.author.id]["leveling"]) {
-        const expirationTime = cooldown[message.author.id]["xp"];
+        const expirationTime = cooldown[message.author.id]["leveling"];
         const nextexpirationTime = now + xpSettings.cooldown;
         // If cooldown exprired
         if (now < expirationTime) {
             xpcld = true;
         } else {
-            cooldown[message.author.id]["xp"] = nextexpirationTime;
+            cooldown[message.author.id]["leveling"] = nextexpirationTime;
             await client.provider.setGuild(message.guild.id, "cooldown", cooldown);
         }
     }
