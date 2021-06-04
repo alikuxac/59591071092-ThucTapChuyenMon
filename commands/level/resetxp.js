@@ -28,7 +28,7 @@ module.exports = class ResetXPCMD extends Command {
             await message.client.provider.setUser(member.id, "leveling", leveling)
             message.channel.send(`Sucessfull reset \`${member.nickname ? member.nickname : member.user.username}\`"s xp`)
         } catch (err) {
-            message.channel.send(`Error occured while reset user"s xp`)
+            message.channel.send(`Error occured while reset user's xp`)
             this.client.logger.log(err)
         }
     }
