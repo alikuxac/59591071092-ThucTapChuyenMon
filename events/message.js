@@ -56,16 +56,16 @@ module.exports = async (client, message) => {
         await message.client.provider.setBotconfsComplete("botconfs", botsettingskeys);
     }
 
-    if (!client.provider.getGuild(message.guild.id, "cooldown")[message.author.id]) {
+    if (!client.provider.getGuild(message.guild.id, "cooldown")[message.author.id.toString()]) {
         const currentCooldowns = client.provider.getGuild(message.guild.id, "cooldowns");
-        currentCooldowns[message.author.id] = {};
+        currentCooldowns[message.author.id.toString()] = {};
         await client.provider.setGuild(message.guild.id, "cooldown", currentCooldowns);
     }
 
     let cooldowns = client.provider.getGuild(message.guild.id, "cooldown");
     let xpcld = false;
     let xp = client.provider.getUser(message.author.id, "leveling");
-    let serverXP = xp["server"][message.guild.id];
+    let serverXP = xp["server"][message.guild.id.toString()];
 
     // level settings
     const levelSettings = client.provider.getGuild(message.guild.id, "leveling");
@@ -84,13 +84,13 @@ module.exports = async (client, message) => {
     }
 
     if (cooldowns[message.author.id]["leveling"]) {
-        const expirationTime = cooldown[message.author.id]["leveling"];
+        const expirationTime = cooldown[message.author.id.toString()]["leveling"];
         const nextexpirationTime = now + xpSettings.cooldown;
         // If cooldown exprired
         if (now < expirationTime) {
             xpcld = true;
         } else {
-            cooldown[message.author.id]["leveling"] = nextexpirationTime;
+            cooldown[message.author.id.toString()]["leveling"] = nextexpirationTime;
             await client.provider.setGuild(message.guild.id, "cooldown", cooldown);
         }
     }
@@ -100,7 +100,7 @@ module.exports = async (client, message) => {
         let currentlvl = Math.floor(Math.sqrt(serverXP) * 0.1);
         serverXP += amtToGive;
         let nextlvl = Math.floor(Math.sqrt(serverXP) * 0.1);
-        xp["server"][message.guild.id] = serverXP;
+        xp["server"][message.guild.id.toString()] = serverXP;
         await client.provider.setUser(message.author.id, "leveling", xp);
         if (currentlvl !== nextlvl) {
             for (const key in roleReward) {
