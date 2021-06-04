@@ -13,7 +13,11 @@ Giảng viên: Thầy Nguyễn Lê Minh. 
 - HTML + Javascript + CSS
 
 ## Phần 2: Các chức năng đã hoàn thành:
-1. 
+1. User
+- Quản lý hệ thống cấp bậc (leveling system)
+	+ Làm mới cấp bậc
+	+ Thêm/Xoá/Sửa/Xem cấp thưởng
+	+ Thêm/Trừ điểm tích luỹ 
 2. 
 3. 
 
@@ -32,10 +36,6 @@ Giảng viên: Thầy Nguyễn Lê Minh. 
 - Quản lý kênh đàm thoại tuỳ chỉnh
 	+ Tạo/Xóa/Cập nhật kênh đàm thoại
 	+ Xem các thông tin của kênh đàm thoại
-- Quản lý hệ thống cấp bậc (leveling system)
-	+ Làm mới cấp bậc
-	+ Thêm/Xoá/Sửa/Xem cấp thưởng
-	+ Thêm/Trừ điểm tích luỹ 
 - Quản lý chống spam tin nhắn (anti spam)
 - Thực thi các lệnh bot có nếu đủ quyền thực thi
 - Liên hệ: tại máy chủ hỗ trợ
