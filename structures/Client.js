@@ -235,7 +235,7 @@ module.exports = class ExtendedClient extends CommandoClient {
                 await oldMsg.delete().catch();
             }
             channel.send({ embed: noSongEmbed })
-
+            player.stop();
         });
     }
 }
