@@ -7,6 +7,7 @@ module.exports = class BadWordCMD extends Command {
             name: "badword",
             memberName: "badword",
             group: "admin",
+            description: "Bad word system",
             userPermissions: ["ADMINISTRATOR"],
             args: [
                 {
