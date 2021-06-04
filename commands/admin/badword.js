@@ -32,8 +32,8 @@ module.exports = class BadWordCMD extends Command {
                 const defaultSetting = {
                     "status": false,
                     "list": []
-                }
-                let waitMsg = await message.channel.send(`Are you sure to do this?`)
+                };
+                let waitMsg = await message.channel.send(`Are you sure to do this?`);
                 waitMsg.react("✅")
                 waitMsg.react("❎")
                 const filter = (reaction, user) => {
@@ -46,7 +46,7 @@ module.exports = class BadWordCMD extends Command {
                         try {
                             waitMsg.edit(`Reset successful`);
 
-                            await message.client.provider.setGuild(message.guild.id, "badword", defaultSetting);
+                            message.client.provider.setGuild(message.guild.id, "badword", defaultSetting);
                         } catch (err) {
                             waitMsg.edit(`Error occured while restartting default setting`);
                             this.client.logger.error(err)
