@@ -20,18 +20,13 @@ module.exports = class SeekCMD extends Command {
     }
 
     async run(message, args) {
+        const { channel } = message.member.voice;
         //if user not in a voice channel
         if (!channel) return message.reply("you must in a voice channel to run command").then(msg => {
             try { msg.delete({ timeout: 5000 }).catch(e => this.client.logger.log("Couldn't delete message this is a catch to prevent a crash")); } catch { /* */ }
         });
         const player = this.client.manager.players.get(message.guild.id)
         if (!player) return message.reply("there is no player for this guild.")
-            .then(msg => {
-                try { msg.delete({ timeout: 5000 }).catch(e => this.client.logger.log("Couldn't delete message this is a catch to prevent a crash")); } catch { /* */ }
-            });
-
-        const { channel } = message.member.voice;
-        if (!channel) return message.reply("you need to join a voice channel.")
             .then(msg => {
                 try { msg.delete({ timeout: 5000 }).catch(e => this.client.logger.log("Couldn't delete message this is a catch to prevent a crash")); } catch { /* */ }
             });
