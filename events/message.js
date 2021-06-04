@@ -68,7 +68,7 @@ module.exports = async (client, message) => {
     let cooldowns = client.provider.getGuild(message.guild.id, "cooldown");
     let xpcld = false;
     let xp = client.provider.getUser(message.author.id, "leveling");
-    let serverXP = xp["server"][guildID];
+    let serverXP = xp["server"][guildID] ? xp["server"][guildID] : 0;
 
     // level settings
     const levelSettings = client.provider.getGuild(message.guild.id, "leveling");
