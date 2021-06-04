@@ -75,10 +75,10 @@ module.exports = class BadWordCMD extends Command {
             case "add":
                 let bwListAdd = bwSettings.list;
                 if (!value) return message.say(`Give me a word please`);
-                const arr = value.toLowerCase().split(" ");
-                if (arr.length > 1) return message.reply("currently support 1 word per command");
-                if (bwListAdd.includes(arr[0])) return message.reply("this word already in bad word list");
-                bwListAdd = bwListAdd.push(arr[0])
+                const arrAdd = value.toLowerCase().split(" ");
+                if (arrAdd.length > 1) return message.reply("currently support 1 word per command");
+                if (bwListAdd.includes(arrAdd[0])) return message.reply("this word already in bad word list");
+                bwListAdd = bwListAdd.push(arrAdd[0])
                 bwSettings["list"] = bwListAdd;
 
                 try {
@@ -95,10 +95,10 @@ module.exports = class BadWordCMD extends Command {
 
                 let bwListRemove = bwSettings.list;
                 if (!value) return message.say(`Give me a word please`);
-                const arr = value.toLowerCase().split(" ");
-                if (arr.length > 1) return message.reply("currently support 1 word per command");
-                if (!bwListRemove.includes(arr[0])) return message.reply("this word not in bad word list");
-                const index = bwListRemove.indexOf(arr[0]);
+                const arrRemove = value.toLowerCase().split(" ");
+                if (arrRemove.length > 1) return message.reply("currently support 1 word per command");
+                if (!bwListRemove.includes(arrRemove[0])) return message.reply("this word not in bad word list");
+                const index = bwListRemove.indexOf(arrRemove[0]);
                 bwListRemove = bwListRemove.slice(index, 1);
                 bwSettings["list"] = bwListRemove;
 
