@@ -79,7 +79,7 @@ module.exports = class BadWordCMD extends Command {
                 const arrAdd = value.toLowerCase().split(" ");
                 if (arrAdd.length > 1) return message.reply("currently support 1 word per command");
                 if (bwListAdd.includes(arrAdd[0])) return message.reply("this word already in bad word list");
-                bwListAdd = bwListAdd.push(arrAdd[0])
+                bwListAdd.push(arrAdd[0])
                 bwSettings["list"] = bwListAdd;
 
                 try {
@@ -100,7 +100,7 @@ module.exports = class BadWordCMD extends Command {
                 if (arrRemove.length > 1) return message.reply("currently support 1 word per command");
                 if (!bwListRemove.includes(arrRemove[0])) return message.reply("this word not in bad word list");
                 const index = bwListRemove.indexOf(arrRemove[0]);
-                bwListRemove = bwListRemove.slice(index, 1);
+                bwListRemove.slice(index, 1);
                 bwSettings["list"] = bwListRemove;
 
                 try {
