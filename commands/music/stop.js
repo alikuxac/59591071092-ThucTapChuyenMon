@@ -14,7 +14,6 @@ module.exports = class StopCMD extends Command {
     }
 
     async run(message, args) {
-        const { channel } = message.member.voice;
         //get the channel instance from the Member
         const { channel } = message.member.voice;
         //if user not in a voice channel
