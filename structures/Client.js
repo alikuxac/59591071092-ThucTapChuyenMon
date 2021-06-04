@@ -177,10 +177,6 @@ module.exports = class ExtendedClient extends CommandoClient {
 
         this.manager.on("trackStart", async (player, track) => {
 
-            const manager = this.provider.getBotsettings("botconfs", "musicmanager");
-            const managerchannel = await this.channels.fetch(manager.channel);
-            const trackmsg = await managerchannel.messages.fetch(manager.trackid);
-
             // console.log(trackmsg);
             player.set("votes", 0)
             for (const userid of this.guilds.cache.get(player.guild).members.cache.map(member => member.user.id))
