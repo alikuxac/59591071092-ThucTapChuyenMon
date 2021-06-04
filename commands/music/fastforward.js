@@ -42,6 +42,6 @@ module.exports = class ForwardCMD extends Command {
             forward = player.queue.current.duration - 1000;
         }
         player.seek(Number(forward));
-        await message.say(`Forwared the song for: ${number} Seconds, to: ${this.manager.util.format(Number(player.position))}`)
+        await message.say(`Forwared the song for: ${number} Seconds, to: ${this.client.manager.util.format(Number(player.position))}`)
     }
 }

@@ -41,6 +41,6 @@ module.exports = class RewindCMD extends Command {
             rewind = 0;
         }
         player.seek(Number(rewind));
-        await message.say(`Rewinded the song for: ${number} Seconds, to: ${this.manager.util.format(Number(player.position))}`)
+        await message.say(`Rewinded the song for: ${number} Seconds, to: ${this.client.manager.util.format(Number(player.position))}`)
     }
 }
