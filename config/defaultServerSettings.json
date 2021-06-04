@@ -17,7 +17,8 @@
   },
   "badword": {
     "status": false,
-    "list": []
+    "list": [],
+    "ignorerole": []
   },
   "modlog": {
     "status": false,

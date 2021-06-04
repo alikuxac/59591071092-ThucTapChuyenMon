@@ -118,8 +118,8 @@ module.exports = async (client, message) => {
     }
 
     const bwSettings = client.provider.getGuild(message.guild.id, "badword");
-    if (bwSettings.status && message.content && new RegExp(bwSettings.list.join("|")).text(message.content)) {
+    if (bwSettings.status && message.content && new RegExp(bwSettings.list.join("|")).text(message.content) && !message.member.hasPermission("ADMINISTRATOR") && bwSettings.ignorerole.some(id => member.roles.cache.has(id)) ) {
         message.reply("bad word detected, be careful");
-        message.delete({ timeout: 1000 })
+        await message.delete({ timeout: 1000 })
     }
 }

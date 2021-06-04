@@ -32,7 +32,8 @@ module.exports = class BadWordCMD extends Command {
             case "reset":
                 const defaultSetting = {
                     "status": false,
-                    "list": []
+                    "list": [],
+                    "ignorerole": []
                 };
                 let waitMsg = await message.channel.send(`Are you sure to do this?`);
                 waitMsg.react("✅")
@@ -62,7 +63,7 @@ module.exports = class BadWordCMD extends Command {
 
                 collector.on("end", collected => {
                     waitMsg.reactions.removeAll();
-                    waitMsg.edit(`Timed out. :i`)
+                    waitMsg.edit(`Timed out. :i`);
                 });
                 break;
             case "toggle":
@@ -87,9 +88,8 @@ module.exports = class BadWordCMD extends Command {
                     message.say(`Added new bad word successully!`);
                 } catch (err) {
                     this.client.logger.error(err);
-                    message.say("Error while adding new word")
+                    message.say("Error while adding new word");
                 }
-
                 break;
 
             case "remove":
@@ -108,11 +108,31 @@ module.exports = class BadWordCMD extends Command {
                     message.say(`Added new bad word successully!`);
                 } catch (err) {
                     this.client.logger.error(err);
-                    message.say("Error while adding new word")
+                    message.say("Error while adding remove word");
                 }
 
                 break;
+            case "role":
+                let ignoreList = bwSettings.ignorerole;
+                if (!value) return message.reply("Give me role name or ID to ignore");
+                const role = this.client.registry.types.get("role").parse(value, message);
+                if (!role) return message.reply("Invalid Role");
+                if (!ignoreList.includes(role.id)){
+                    ignoreList.push(role.id)
+                } else {
+                    const index = bwListRemove.indexOf(role.id);
+                    ignoreList.splice(index, 1);
+                }
 
+                bwSettings["ignorerole"] = ignoreList;
+                try {
+                    await this.client.provider.setGuild(message.guild.id, "badword", bwSettings);
+                    message.say(`${ignoreList.includes(roleid) ? "Removed" : "Added"} ignore role successully!`);
+                } catch (err) {
+                    this.client.logger.error(err);
+                    message.say("Error while adding new word")
+                }
+                break;
             case "list":
                 let bwDisplay = bwSettings.list.length === 0 ? "None" : bwSettings.list.map(val => `\`${val}\``).join(", ");
                 const embed = new MessageEmbed()
