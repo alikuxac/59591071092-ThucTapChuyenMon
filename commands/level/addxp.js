@@ -8,6 +8,7 @@ module.exports = class AddXPCMD extends Command {
             group: "level",
             description: "Add xp to specific user",
             guildOnly: true,
+            userPermissions: ["ADMINISTRATOR"],
             args: [
                 {
                     key: "user",

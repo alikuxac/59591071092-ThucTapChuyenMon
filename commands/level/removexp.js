@@ -9,6 +9,7 @@ module.exports = class RemoveXPCMD extends Command {
             aliases: ["rmxp"],
             description: "Add xp to specific user",
             guildOnly: true,
+            userPermissions: ["ADMINISTRATOR"],
             args: [
                 {
                     key: "user",
