@@ -1,4 +1,4 @@
-const Command = require("../../../../Discord/MineChill/ServerBot/structures/Command");
+const Command = require("../../structures/Command");
 
 module.exports = class ForwardCMD extends Command {
     constructor(client) {
