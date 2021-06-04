@@ -18,8 +18,13 @@ Giảng viên: Thầy Nguyễn Lê Minh. 
 	+ Làm mới cấp bậc
 	+ Thêm/Xoá/Sửa/Xem cấp thưởng
 	+ Thêm/Trừ điểm tích luỹ 
+- Quản lý danh sách từ ngữ không phù hợp (anti badword)
+	+ Thêm/Xóa/Sửa từ ngữ không phù hợp trong danh sách
+	+ Xem lại danh sách từ ngữ không phù hợp
+- Liên hệ: tại máy chủ hỗ trợ
 2. 
-3. 
+3. Bot
+- Chống user nhắn tin những từ ngữ không phù hợp
 
 
 ## Phần 3: Các chức năng chưa hoàn thành:
@@ -27,9 +32,6 @@ Giảng viên: Thầy Nguyễn Lê Minh. 
 - Quản lý các cài đặt tại máy chủ
 	+ Thêm/Xóa/Sửa các cài đặt
 	+ Xem lại các cài đặt của bot tại máy chủ
-- Quản lý danh sách từ ngữ không phù hợp (anti badword)
-	+ Thêm/Xóa/Sửa từ ngữ không phù hợp trong danh sách
-	+ Xem lại danh sách từ ngữ không phù hợp
 - Quản lý trình phát nhạc
 	+ Tạo/Xóa/Sửa trình phát nhạc
 	+ Xem các cài đặt của trình phát nhạc
@@ -38,7 +40,6 @@ Giảng viên: Thầy Nguyễn Lê Minh. 
 	+ Xem các thông tin của kênh đàm thoại
 - Quản lý chống spam tin nhắn (anti spam)
 - Thực thi các lệnh bot có nếu đủ quyền thực thi
-- Liên hệ: tại máy chủ hỗ trợ
 - Đăng nhâp: Người dùng muốn vảo hệ thống phải tiến hành đăng nhâp, nếu không có tài khoản thì tiến hành đăng kí tài khoản discord
 2. Chủ sở hữu con bot
 - Quản lý các cài đặt của user và tất cả máy chủ 
@@ -49,7 +50,6 @@ Giảng viên: Thầy Nguyễn Lê Minh. 
 - Bảo mật, kiểm tra token/login
 - Lưu từng tin nhắn vào cơ sở dữ liệu PostgreSQL (hoặc MySQL)
 - Chống spam
-- Chống user nhắn tin những từ ngữ không phù hợp
 
 
 ## Hướng dẫn sử dụng:
