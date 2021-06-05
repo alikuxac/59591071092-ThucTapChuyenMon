@@ -14,6 +14,9 @@ Giảng viên: Thầy Nguyễn Lê Minh. 
 
 ## Phần 2: Các chức năng đã hoàn thành:
 1. User
+- Quản lý trình phát nhạc
+	+ Tạo/Xóa/Sửa trình phát nhạc
+	+ Xem các cài đặt của trình phát nhạc
 - Quản lý hệ thống cấp bậc (leveling system)
 	+ Làm mới cấp bậc
 	+ Thêm/Xoá/Sửa/Xem cấp thưởng
@@ -25,16 +28,13 @@ Giảng viên: Thầy Nguyễn Lê Minh. 
 2. 
 3. Bot
 - Chống user nhắn tin những từ ngữ không phù hợp
-
+- Phát nhạc từ Youtube, SoundCloud, … (thông qua thư viện)
 
 ## Phần 3: Các chức năng chưa hoàn thành:
 1. User
 - Quản lý các cài đặt tại máy chủ
 	+ Thêm/Xóa/Sửa các cài đặt
 	+ Xem lại các cài đặt của bot tại máy chủ
-- Quản lý trình phát nhạc
-	+ Tạo/Xóa/Sửa trình phát nhạc
-	+ Xem các cài đặt của trình phát nhạc
 - Quản lý kênh đàm thoại tuỳ chỉnh
 	+ Tạo/Xóa/Cập nhật kênh đàm thoại
 	+ Xem các thông tin của kênh đàm thoại
@@ -46,11 +46,9 @@ Giảng viên: Thầy Nguyễn Lê Minh. 
 - Quản lý log
 - Quản lý thông tin user 
 3. Bot
-- Phát nhạc từ Youtube, SoundCloud, … (thông qua thư viện)
 - Bảo mật, kiểm tra token/login
 - Lưu từng tin nhắn vào cơ sở dữ liệu PostgreSQL (hoặc MySQL)
 - Chống spam
-
 
 ## Hướng dẫn sử dụng:
 Cập nhật sau. 
