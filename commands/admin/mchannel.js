@@ -254,7 +254,7 @@ module.exports = class MChannelCMD extends Command {
                             id: action
                         },
                         {
-                            $set: { bitrate: bitrateNum }
+                            $set: { bitrate: bitrateNum * 1000 }
                         }
                     ).then(val => {
                         return message.say("Update birate of master channel successful");
