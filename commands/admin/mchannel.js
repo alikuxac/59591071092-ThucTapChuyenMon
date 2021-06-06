@@ -152,20 +152,20 @@ module.exports = class MChannelCMD extends Command {
                 case "setting":
                 case "settings":
                     const settingEmbed = new MessageEmbed()
-                        .setTitle(`${findMaster.name} ()`)
+                        .setAuthor(`${message.author.username}#${message.author.discriminator}`)
+                        .setTitle(`${findMaster.name}`)
                         .setDescription(stripIndent`
                             ID: ${findMaster.id}
-                            Default name: ${findMaster.name}
+                            Default name: \`${findMaster.name}\`
                             UserLimit: ${findMaster.userLimit}
                             Bitrate: ${findMaster.bitrate}
-                            vname: channel.name,
-                    name: "%USER%'s Home",
-                    userLimit: 0,
-                    bitrate: channel.bitrate,
-                    category: channel.parent ? channel.parent : "None",
-                    copyperm: false,
-                    pushtotalk: false
-                        `);
+                            Category: ${findMaster.category}
+                            Copyperm: ${findMaster.copyperm ? "Yes" : "No"}
+                            Pushtotalk: ${findMaster.pushtotalk ? "Yes" : "No"}
+                        `)
+                        .setColor("RANDOM")
+                        .setTimestamp();
+                    message.embed(settingEmbed);
                     break;
                 case "name":
                     if (!value) return message.reply("please input any value");
