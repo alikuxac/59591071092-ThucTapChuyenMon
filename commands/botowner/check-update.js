@@ -8,7 +8,7 @@ module.exports = class CheckUpdateCMD extends Command {
             memberName: 'check-update',
             group: 'botowner',
             description: 'Check update from officical github',
-            userPermissions: ['SEND_MESSAGES'],
+            userPermissions: ['SEND_MESSAGES', "ADMINISTRATOR"],
             clientPermissions: ['SEND_MESSAGES'],
             ownerOnly: true,
             hidden: true,

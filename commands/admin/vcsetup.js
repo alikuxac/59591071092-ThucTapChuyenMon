@@ -8,6 +8,8 @@ module.exports = class VCSetup extends Command {
             group: "admin",
             description: "Setup auto voice system",
             guildOnly: true,
+            userPermissions: ["ADMINISTRATOR"],
+            clientPermissions: ["MANAGE_CHANNEL"],
             args: [
                 {
                     key: "action",
