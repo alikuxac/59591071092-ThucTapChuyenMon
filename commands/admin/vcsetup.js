@@ -15,10 +15,10 @@ module.exports = class VCSetup extends Command {
                     type: "string"
                 },
                 {
-                    kay: "value",
+                    key: "value",
                     prompt: "Give me the value please",
                     type: "string",
-                    deafult: ""
+                    default: ""
                 }
             ]
         })
