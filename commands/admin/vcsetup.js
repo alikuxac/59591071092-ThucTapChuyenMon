@@ -15,7 +15,7 @@ module.exports = class VCSetup extends Command {
                     type: "string"
                 },
                 {
-                    value: "value",
+                    kay: "value",
                     prompt: "Give me the value please",
                     type: "string",
                     deafult: ""
