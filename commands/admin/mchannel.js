@@ -57,7 +57,7 @@ module.exports = class MChannelCMD extends Command {
                 if (category) {
                     voicechannel = await message.guild.channels.create(`Create voice ${masterlength}`, {
                         type: "voice",
-                        bitrate: 64,
+                        bitrate: 64000,
                         userLimit: 0,
                         parent: category,
                         reason: "Create auto channel"
@@ -65,7 +65,7 @@ module.exports = class MChannelCMD extends Command {
                 } else {
                     voicechannel = await message.guild.channels.create(`Create voice ${masterlength}`, {
                         type: "voice",
-                        bitrate: 64,
+                        bitrate: 64000,
                         userLimit: 0,
                         reason: "Create auto channel"
                     })
@@ -80,7 +80,7 @@ module.exports = class MChannelCMD extends Command {
                         vname: voicechannel.name,
                         name: "%USER%'s Home",
                         userLimit: 0,
-                        bitrate: 64,
+                        bitrate: 64000,
                         category: category ? category : "None",
                         copyperm: false,
                         pushtotalk: false,
