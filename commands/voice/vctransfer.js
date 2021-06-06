@@ -1,11 +1,11 @@
 const Command = require("../../structures/Command");
 const { MessageEmbed } = require("discord.js");
 
-module.exports = class VCNameCMD extends Command {
+module.exports = class VCTrandferCMD extends Command {
     constructor(client) {
         super(client, {
-            name: "vname",
-            memberName: "vname",
+            name: "vctransfer",
+            memberName: "vctransfer",
             group: "voice",
             description: "Transfer owner to another user",
             guildOnly: true,
