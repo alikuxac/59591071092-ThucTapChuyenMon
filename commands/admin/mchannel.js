@@ -85,13 +85,13 @@ module.exports = class MChannelCMD extends Command {
                         isLock: false
                     }
                 )
-                return message.say(`Create master channel with id ${id} successfully`);
+                return message.say(`Create master channel with id \`${id}\` successfully`);
             } catch (err) {
                 throw err;
             }
 
         } else if (action === "show") {
-            const masterList = this.client.provider.getVCCollection().find({
+            const masterList = await this.client.provider.getVCCollection().find({
                 $and: [
                     { guildID: message.guild.id },
                     { type: "master" }
@@ -109,7 +109,7 @@ module.exports = class MChannelCMD extends Command {
             const { channel } = message.member.voice;
             if (!channel) return message.reply("you must in a spefic voice to run this command");
             let setid = this.client.util.createVoiceID();
-            const findChannel = this.client.provider.getVCCollection().findOne({ channelID: channel.id });
+            const findChannel = await this.client.provider.getVCCollection().findOne({ channelID: channel.id });
             if (findChannel) return message.say(`This channel is already a ${findChannel.type}`);
             await this.client.provider.getVCCollection().insertOne(
                 {
@@ -142,7 +142,7 @@ module.exports = class MChannelCMD extends Command {
                 .setTimestamp();
             return message.channel.send({ embed });
         } else {
-            const findMaster = this.client.provider.getVCCollection().findOne({
+            const findMaster = await this.client.provider.getVCCollection().findOne({
                 id: action
             });
             if (!findMaster) return message.reply("invalid ID. Try again");

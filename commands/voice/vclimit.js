@@ -30,7 +30,7 @@ module.exports = class VCLimitCMD extends Command {
         const { channel } = message.member.voice;
         //if user not in a voice channel
         if (!channel) return message.reply("you must in a voice channel to run command");
-        const VoiceSearch = this.client.provider.getVCCollection().findOne({ channelID: channel.id });
+        const VoiceSearch = await this.client.provider.getVCCollection().findOne({ channelID: channel.id });
         if (!VoiceSearch) return message.reply("this is not a custom voice channel");
         channel.setUserLimit(limit).then(newChannel => {
             this.client.provider.getVCCollection().updateOne(

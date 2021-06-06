@@ -24,7 +24,7 @@ module.exports = class VCBanCMD extends Command {
         const { channel } = message.member.voice;
         //if user not in a voice channel
         if (!channel) return message.reply("you must in a voice channel to run command");
-        const VoiceSearch = this.client.provider.getVCCollection().findOne({ channelID: channel.id });
+        const VoiceSearch = await this.client.provider.getVCCollection().findOne({ channelID: channel.id });
         if (!VoiceSearch) return message.reply("this is not a custom voice channel");
         if (user.id === VoiceSearch.owner) return message.reply("you can not ban yourself");
     }
