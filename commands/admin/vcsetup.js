@@ -41,7 +41,7 @@ module.exports = class VCSetup extends Command {
                 break;
             case "log":
                 if (!value) return message.reply("invalid value");
-                const channel = this.client.registry.types.get("text-channel").parse(value);
+                const channel = this.client.registry.types.get("text-channel").validate(value, message) ? this.client.registry.types.get("text-channel").parse(value, message) : null ;
                 if (!channel) return message.reply("invalid text channel. Please try again");
 
                 VoiceSettings["log"] = channel.id + "";
