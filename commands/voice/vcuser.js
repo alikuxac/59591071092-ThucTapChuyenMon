@@ -4,7 +4,7 @@ const { MessageEmbed } = require("discord.js");
 module.exports = class VCuserCMD extends Command {
     constructor(client) {
         super(client, {
-            nama: "vcuser",
+            name: "vcuser",
             memberName: "vcuser",
             group: "voice",
             description: "Change voice custom channel name",
@@ -38,7 +38,7 @@ module.exports = class VCuserCMD extends Command {
         switch (action) {
             case "allow":
                 if (user.id === VoiceSearch.owner) return message.reply("you can't do this with owner of channel");
-                if (VoiceSearch.user.allowed.includes(user.id)){
+                if (VoiceSearch.user.allowed.includes(user.id)) {
                     channel.updateOverwrite(user.id, {
                         CONNECT: null
                     }).then(newChannel => {
@@ -63,7 +63,7 @@ module.exports = class VCuserCMD extends Command {
                             })
                         })
                     })
-                    
+
                 } else {
                     channel.updateOverwrite(user.id, {
                         CONNECT: true
@@ -93,7 +93,7 @@ module.exports = class VCuserCMD extends Command {
                 break;
             case "ignore":
                 if (user.id === VoiceSearch.owner) return message.reply("you can't do this with owner of channel");
-                if (VoiceSearch.user.ignored.includes(user.id)){
+                if (VoiceSearch.user.ignored.includes(user.id)) {
                     channel.updateOverwrite(user.id, {
                         CONNECT: null
                     }).then(newChannel => {
@@ -118,7 +118,7 @@ module.exports = class VCuserCMD extends Command {
                             })
                         })
                     })
-                    
+
                 } else {
                     channel.updateOverwrite(user.id, {
                         CONNECT: false
@@ -150,7 +150,7 @@ module.exports = class VCuserCMD extends Command {
             default:
                 break;
         }
-        
-        
+
+
     }
 }

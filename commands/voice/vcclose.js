@@ -4,7 +4,7 @@ const { MessageEmbed } = require("discord.js");
 module.exports = class VCCloseCMD extends Command {
     constructor(client) {
         super(client, {
-            nama: "vcclose",
+            name: "vcclose",
             memberName: "vcclose",
             group: "voice",
             guildOnly: true,

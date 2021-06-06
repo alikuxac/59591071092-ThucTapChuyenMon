@@ -4,7 +4,7 @@ const { MessageEmbed } = require("discord.js");
 module.exports = class VCNameCMD extends Command {
     constructor(client) {
         super(client, {
-            nama: "vname",
+            name: "vname",
             memberName: "vname",
             group: "voice",
             description: "Transfer owner to another user",

@@ -4,7 +4,7 @@ const { MessageEmbed } = require("discord.js");
 module.exports = class VCroleCMD extends Command {
     constructor(client) {
         super(client, {
-            nama: "vcrole",
+            name: "vcrole",
             memberName: "vcrole",
             group: "voice",
             description: "Change voice custom channel name",
@@ -36,7 +36,7 @@ module.exports = class VCroleCMD extends Command {
         if (message.author.id !== VoiceSearch.owner || !message.member.hasPermission("ADMINISTRATOR")) return message.reply("Only owner of this voice can run this command");
         switch (action) {
             case "allow":
-                if (VoiceSearch.role.allowed.includes(role.id)){
+                if (VoiceSearch.role.allowed.includes(role.id)) {
                     channel.updateOverwrite(role.id, {
                         CONNECT: null
                     }).then(newChannel => {
@@ -61,7 +61,7 @@ module.exports = class VCroleCMD extends Command {
                             })
                         })
                     })
-                    
+
                 } else {
                     channel.updateOverwrite(role.id, {
                         CONNECT: true
@@ -90,7 +90,7 @@ module.exports = class VCroleCMD extends Command {
                 }
                 break;
             case "ignore":
-                if (VoiceSearch.role.ignored.includes(role.id)){
+                if (VoiceSearch.role.ignored.includes(role.id)) {
                     channel.updateOverwrite(role.id, {
                         CONNECT: null
                     }).then(newChannel => {
@@ -115,7 +115,7 @@ module.exports = class VCroleCMD extends Command {
                             })
                         })
                     })
-                    
+
                 } else {
                     channel.updateOverwrite(role.id, {
                         CONNECT: false
@@ -147,7 +147,7 @@ module.exports = class VCroleCMD extends Command {
             default:
                 break;
         }
-        
-        
+
+
     }
 }

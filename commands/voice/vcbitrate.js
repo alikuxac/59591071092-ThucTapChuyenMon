@@ -4,7 +4,7 @@ const { MessageEmbed } = require("discord.js");
 module.exports = class VCBitrateCMD extends Command {
     constructor(client) {
         super(client, {
-            nama: "vcbitrate",
+            name: "vcbitrate",
             memberName: "vcbitrate",
             group: "voice",
             guildOnly: true,

@@ -4,7 +4,7 @@ const { MessageEmbed } = require("discord.js");
 module.exports = class VNameCMD extends Command {
     constructor(client) {
         super(client, {
-            nama: "vname",
+            name: "vname",
             memberName: "vname",
             group: "voice",
             description: "Change voice custom channel name",

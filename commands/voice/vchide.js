@@ -4,11 +4,11 @@ const { MessageEmbed } = require("discord.js");
 module.exports = class VChideCMD extends Command {
     constructor(client) {
         super(client, {
-            nama: "vchide",
+            name: "vchide",
             memberName: "vchide",
             group: "voice",
             description: "Hide voice custom channel"
-            
+
         })
     }
 

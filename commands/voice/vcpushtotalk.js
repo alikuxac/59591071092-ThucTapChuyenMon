@@ -4,7 +4,7 @@ const { MessageEmbed } = require("discord.js");
 module.exports = class VCPushtotalkCMD extends Command {
     constructor(client) {
         super(client, {
-            nama: "vcpushtotalk",
+            name: "vcpushtotalk",
             memberName: "vcpushtotalk",
             group: "voice",
             description: "Change pushtotalk mode of voice custom channel",

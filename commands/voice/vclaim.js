@@ -4,7 +4,7 @@ const { MessageEmbed } = require("discord.js");
 module.exports = class VCClaimCMD extends Command {
     constructor(client) {
         super(client, {
-            nama: "vcclaim",
+            name: "vcclaim",
             memberName: "vcclaim",
             group: "voice",
             description: "Claim voice custom channel if no one or owner of channel not in channel",
@@ -33,7 +33,7 @@ module.exports = class VCClaimCMD extends Command {
                 }
             }
         ).then(newChannel => {
-            message.reply(`Claim channel successful`);  
+            message.reply(`Claim channel successful`);
             VoiceLog && message.guild.channels.cache.get(VoiceLog).send({
                 embed: new MessageEmbed()
                     .setAuthor(`${message.author.username}`)

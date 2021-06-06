@@ -4,7 +4,7 @@ const { MessageEmbed } = require("discord.js");
 module.exports = class VCunhideCMD extends Command {
     constructor(client) {
         super(client, {
-            nama: "vcunhide",
+            name: "vcunhide",
             memberName: "vcunhide",
             group: "voice",
             description: "Unhide voice custom channel",
