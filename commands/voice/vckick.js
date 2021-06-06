@@ -1,29 +1,25 @@
 const Command = require("../../structures/Command");
 const { MessageEmbed } = require("discord.js");
 
-module.exports = class VNameCMD extends Command {
+module.exports = class vckickCMD extends Command {
     constructor(client) {
         super(client, {
-            name: "vname",
-            memberName: "vname",
+            name: "vckick",
+            memberName: "vckick",
             group: "voice",
-            description: "Change voice custom channel name",
+            description: "Kick user from channel",
             guildOnly: true,
             args: [
                 {
-                    key: "name",
-                    prompt: "what name do you want to change?",
-                    type: "string",
-                    validate: name => {
-                        if (name.length > 50) return "Name must be under 50 characters";
-                        return true
-                    }
+                    key: "user",
+                    prompt: "Who do you want to kick?",
+                    type: "user"
                 }
             ]
         })
     }
 
-    async run(message, { name }) {
+    async run(message, { user }) {
         const VoiceSettings = this.client.provider.getGuild(message.guild.id, "voice");
         const VoiceLog = VoiceSettings.log;
         //get the channel instance from the Member
@@ -32,27 +28,10 @@ module.exports = class VNameCMD extends Command {
         if (!channel) return message.reply("you must in a voice channel to run command");
         const VoiceSearch = this.client.provider.getVCCollection().findOne({ channelID: channel.id });
         if (!VoiceSearch) return message.reply("this is not a custom voice channel");
-        channel.setName(name).then(newChannel => {
-            this.client.provider.getVCCollection().updateOne(
-                {
-                    channelID: channel.id
-                },
-                {
-                    $set: {
-                        vname: name,
-                        name: name
-                    }
-                }
-            ).then(val => {
-                VoiceLog && message.guild.channels.cache.get(VoiceLog).send({
-                    embed: new MessageEmbed()
-                        .setAuthor(`${message.author.username}`)
-                        .setTitle("Custom voice channel updated")
-                        .setDescription(`Voice channel \`${channel.name}\` changed name to \`${name}\``)
-                        .setColor("YELLOW")
-                        .setTimestamp()
-                })
-            })
-        })
+        const targetChannel = user.member.voice.channel;
+        if (!targetChannel) return message.reply("user not in voice channel");
+        user.member.voice.setChannel(null).then(val => {
+            message.say(`Kicked \`${user.username}\``);
+        });
     }
 }
