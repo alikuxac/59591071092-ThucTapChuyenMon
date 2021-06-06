@@ -5,7 +5,7 @@ module.exports = async (client, channel) => {
         limit: 1,
         type: 11,
     });
-    let user = "User notfound";
+    let user = "User not found";
     const deletedLog = fetchedLogs.entries.first();
     if (deletedLog) {
         const { executor } = deletedLog;
@@ -14,14 +14,17 @@ module.exports = async (client, channel) => {
 
     const VoiceSettings = client.provider.getGuild(channel.guild.id, "voice");
     if (VoiceSettings.status && channel.type === "voice") {
-        const VoiceID = client.provider.getVCCollection().findOne({ channelID: channel.id });
+        const VoiceID = await client.provider.getVCCollection().findOne({ channelID: channel.id });
         if (!VoiceID) return;
-        VoiceSettings.log && channel.guild.channels.cache.get(VoiceSettings.log).send({
-            embed: new MessageEmbed()
-                .setAuthor(`\`${user}\``)
-                .setDescription(`\`${user}\ deleted channel \`${channel.name}\` with type ${VoiceID.type}`)
-                .setColor("RED")
-                .setTimestamp()
-        })
+        client.provider.getVCCollection().deleteOne({ channelID: channel.id }).then(val => {
+            VoiceSettings.log && channel.guild.channels.cache.get(VoiceSettings.log).send({
+                embed: new MessageEmbed()
+                    .setAuthor(`\`${user}\``)
+                    .setDescription(`\`${user}\` deleted channel \`${channel.name}\` with type \`${VoiceID.type}\``)
+                    .setColor("RED")
+                    .setTimestamp()
+            })
+        })  
+
     }
 }

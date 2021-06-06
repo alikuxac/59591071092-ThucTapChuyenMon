@@ -15,7 +15,7 @@ module.exports = async (client, oldState, newState) => {
     }
 
     // User change voice channel
-    if (oldState.channel && newState.channel && oldState.channel.id !== newState.channel.id) {
+    if (oldState.channel && newState.channel) {
         require("../handlers/voice/UserChangeVoice")(client, oldState, newState);
     }
 }

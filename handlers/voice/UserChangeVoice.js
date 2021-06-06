@@ -3,17 +3,17 @@ const { MessageEmbed } = require("discord.js");
 module.exports = async (client, oldState, newState) => {
     const VoiceSettings = client.provider.getGuild(newState.guild.id, "voice");
     const VoiceLog = VoiceSettings.log;
-    const user = client.users.fetch(oldState.id);
-    const member = oldState.guild.member(user);
+    const user = await client.users.fetch(oldState.id);
+    const member = newState.member;
     const LeftChannelID = oldState.channel.id;
-    const VoiceSearchLeft = client.provider.getVCCollection().findOne({ channelID: LeftChannelID });
+    const VoiceSearchLeft = await client.provider.getVCCollection().findOne({ channelID: LeftChannelID });
     const JoinedChannelID = newState.channel.id;
-    const VoiceSearchJoin = client.provider.getVCCollection().findOne({ channelID: JoinedChannelID });
+    const VoiceSearchJoin = await client.provider.getVCCollection().findOne({ channelID: JoinedChannelID });
 
     // If no one left in the custom voice channel, delete it
     if (VoiceSearchLeft && VoiceSearchLeft.type === "custom" && oldState.channel.members.size == 0) {
-        await oldState.channel.delete().catch(() => { /* Do nothing */ });
-        await client.provider.getVCCollection().deleteOne({ channelID: LeftChannelID })
+        await oldState.channel.delete().catch();
+        client.provider.getVCCollection().deleteOne({ channelID: LeftChannelID })
             .then(val => {
                 VoiceLog && oldState.guild.channels.cache.get(VoiceLog).send({
                     embed: new MessageEmbed()
@@ -24,20 +24,21 @@ module.exports = async (client, oldState, newState) => {
                         .setTimestamp()
                 })
             });
-    } else if (VoiceSearchJoin && VoiceSearchJoin.type === "master") {
+    }
+    if (VoiceSearchJoin && VoiceSearchJoin.type === "master") {
         if (VoiceSearchJoin.copyperm) {
             const CopyChannel = await newState.channel.clone({
                 name: VoiceSearchJoin.name.replace("%USER%", user.username),
                 type: "voice"
             })
-            member.voice.setChannel(CopyChannel);
-            CopyChannel.overwritePermissions([
+            await newState.setChannel(CopyChannel);
+            await CopyChannel.updateOverwrite(user.id,
                 {
-                    id: user.id,
-                    allow: ["CONNECT", "VIEW_CHANNEL"]
+                    CONNECT: true,
+                    VIEW_CHANNEL: true
                 }
-            ]);
-            if (VoiceSearchJoin.pushtotalk) CopyChannel.overwritePermissions([{ id: newState.guild.id, deny: ["USE_VAD"] }]);
+            );
+            if (VoiceSearch.pushtotalk) await CopyChannel.updateOverwrite(newState.guild.id, { USE_VAD: false });
             client.provider.getVCCollection().insertOne({
                 channelID: CopyChannel.id,
                 guildID: newState.guild.id,
@@ -69,14 +70,14 @@ module.exports = async (client, oldState, newState) => {
                 userLimit: VoiceSearchJoin.userLimit
             })
 
-            member.voice.setChannel(NewChannel);
-            NewChannel.overwritePermissions([
+            await newState.setChannel(NewChannel);
+            await NewChannel.updateOverwrite(newState.id,
                 {
-                    id: user.id,
-                    allow: [, "CONNECT", "VIEW_CHANNEL"]
+                    CONNECT: true,
+                    VIEW_CHANNEL: true
                 }
-            ]);
-            if (VoiceSearchJoin.pushtotalk) NewChannel.overwritePermissions([{ id: newState.guild.id, deny: ["USE_VAD"] }]);
+            );
+            if (VoiceSearch.pushtotalk) await NewChannel.updateOverwrite(newState.guild.id, { USE_VAD: false });
             client.provider.getVCCollection().insertOne({
                 channelID: NewChannel.id,
                 guildID: newState.guild.id,

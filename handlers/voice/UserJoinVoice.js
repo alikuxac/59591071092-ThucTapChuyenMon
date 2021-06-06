@@ -3,10 +3,10 @@ const { MessageEmbed } = require("discord.js");
 module.exports = async (client, newState) => {
     const VoiceSettings = client.provider.getGuild(newState.guild.id, "voice");
     const VoiceLog = VoiceSettings.log;
-    const user = client.users.fetch(newState.id);
-    const member = newState.guild.member(user);
+    const user = await client.users.fetch(newState.id);
+    const member = newState.member;
     const JoinedChannelID = newState.channel.id;
-    const VoiceSearch = client.provider.getVCCollection().findOne({ channelID: JoinedChannelID });
+    const VoiceSearch = await client.provider.getVCCollection().findOne({ channelID: JoinedChannelID });
     if (!VoiceSearch) return; // if joined channel is not a master channel or custom channel created by bot, exit
 
     if (VoiceSearch.type === "master") {
@@ -15,14 +15,14 @@ module.exports = async (client, newState) => {
                 name: VoiceSearch.name.replace("%USER%", user.username),
                 type: "voice"
             })
-            member.voice.setChannel(CopyChannel);
-            CopyChannel.overwritePermissions([
+            await newState.setChannel(CopyChannel);
+            await CopyChannel.updateOverwrite(user.id, 
                 {
-                    id: user.id,
-                    allow: ["CONNECT", "VIEW_CHANNEL"]
+                    CONNECT: true,
+                    VIEW_CHANNEL: true
                 }
-            ]);
-            if (VoiceSearch.pushtotalk) CopyChannel.overwritePermissions([{ id: newState.guild.id, allow: ["USE_VAD"] }]);
+            );
+            if (VoiceSearch.pushtotalk) await CopyChannel.updateOverwrite(newState.guild.id, { USE_VAD: false });
             client.provider.getVCCollection().insertOne({
                 channelID: CopyChannel.id,
                 guildID: newState.guild.id,
@@ -48,7 +48,7 @@ module.exports = async (client, newState) => {
                     embed: new MessageEmbed()
                         .setAuthor(`${user.username}`)
                         .setTitle("New auto channel created")
-                        .setDescription(`<#${user.id}> create a new custom voice channel with name \`${CopyChannel.name}\``)
+                        .setDescription(`<@${user.id}> create a new custom voice channel with name \`${CopyChannel.name}\``)
                         .setColor("GREEN")
                         .setTimestamp()
                 })
@@ -61,14 +61,14 @@ module.exports = async (client, newState) => {
                 userLimit: VoiceSearch.userLimit
             })
 
-            member.voice.setChannel(NewChannel);
-            NewChannel.overwritePermissions([
+            await newState.setChannel(NewChannel);
+            await NewChannel.updateOverwrite(newState.id, 
                 {
-                    id: user.id,
-                    allow: ["CONNECT", "VIEW_CHANNEL"]
+                    CONNECT: true,
+                    VIEW_CHANNEL: true
                 }
-            ]);
-            if (VoiceSearch.pushtotalk) NewChannel.overwritePermissions([{ id: newState.guild.id, deny: ["USE_VAD"] }]);
+            );
+            if (VoiceSearch.pushtotalk) await NewChannel.updateOverwrite(newState.guild.id, { USE_VAD: false });
             client.provider.getVCCollection().insertOne({
                 channelID: NewChannel.id,
                 guildID: newState.guild.id,
@@ -94,7 +94,7 @@ module.exports = async (client, newState) => {
                     embed: new MessageEmbed()
                         .setAuthor(`${user.username}`)
                         .setTitle("New auto channel created")
-                        .setDescription(`<#${user.id}> create a new custom voice channel with name \`${NewChannel.name}\``)
+                        .setDescription(`<@${user.id}> create a new custom voice channel with name \`${val.name}\``)
                         .setColor("GREEN")
                         .setTimestamp()
                 })
