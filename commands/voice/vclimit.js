@@ -1,13 +1,13 @@
 const Command = require("../../structures/Command");
 const { MessageEmbed } = require("discord.js");
 
-module.exports = class VNameCMD extends Command {
+module.exports = class VCLimitCMD extends Command {
     constructor(client) {
         super(client, {
-            name: "vname",
-            memberName: "vname",
+            name: "vclimit",
+            memberName: "vclimit",
             group: "voice",
-            description: "Change voice custom channel name",
+            description: "Change voice custom channel limit",
             guildOnly: true,
             args: [
                 {
