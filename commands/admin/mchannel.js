@@ -99,12 +99,13 @@ module.exports = class MChannelCMD extends Command {
                     { type: "master" }
                 ]
             }).toArray();
-            let masterDisplay = masterList.length > 0 ? masterList.map((val, i) => `${i++}. ${val.vname} (${val.id})`).join("\n") : "None";
+            let masterDisplay = masterList.length ? masterList.map((val, i) => `${i++}. ${val.vname} (${val.id})`).join("\n") : "None";
             return message.channel.send({
                 embed: new MessageEmbed()
                     .setTitle("Master channel list")
                     .setDescription(`\`\`\`${masterDisplay}\n\`\`\``)
-                    .setColor
+                    .setColor("RED")
+                    .setTimestamp()
             })
         } else if (action === "set") {
             const { channel } = message.member.voice;
