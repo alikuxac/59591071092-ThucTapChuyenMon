@@ -17,7 +17,7 @@ module.exports = class VCSetup extends Command {
                 {
                     key: "value",
                     prompt: "Give me the value please",
-                    type: "string",
+                    type: "text-channel|integer",
                     default: ""
                 }
             ]
@@ -41,13 +41,12 @@ module.exports = class VCSetup extends Command {
                 break;
             case "log":
                 if (!value) return message.reply("invalid value");
-                const channel = this.client.registry.types.get("text-channel").validate(value, message) ? this.client.registry.types.get("text-channel").parse(value, message) : null ;
+                const channel = typeof value !== "number";
                 if (!channel) return message.reply("invalid text channel. Please try again");
-
-                VoiceSettings["log"] = channel.id + "";
+                VoiceSettings["log"] = value.id + "";
                 try {
                     await this.client.provider.setGuild(message.guild.id, "voice", VoiceSettings);
-                    message.say(`Set voice log to <#${channel.id}> successfully.`);
+                    message.say(`Set voice log to <#${value.id}> successfully.`);
                 } catch (err) {
                     throw err;
                 }
@@ -55,8 +54,8 @@ module.exports = class VCSetup extends Command {
 
             case "limit":
                 if (!value) return message.reply("invalid value");
-                if (!isNaN(parseInt(value))) return message.reply("invalid number");
-
+                if (typeof value !== "number") return message.reply("invalid number");
+                if (parseInt(value) > 100) return message.reply("value must be under 100");
                 VoiceSettings["limit"] = parseInt(value);
                 try {
                     await this.client.provider.setGuild(message.guild.id, "voice", VoiceSettings);
