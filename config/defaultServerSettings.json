@@ -35,5 +35,10 @@
     "end": ""
   },
   "cooldown":{},
-  "prefix": ""
+  "prefix": "",
+  "voice": {
+    "status": false,
+    "limit": 50,
+    "log": ""
+  }
 }

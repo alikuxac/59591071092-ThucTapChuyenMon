@@ -24,6 +24,7 @@
   "homepage": "https://github.com/alikuxac/59591071092-ThucTapChuyenMon#readme",
   "dependencies": {
     "axios": "^0.21.1",
+    "common-tags": "^1.8.0",
     "cors": "^2.8.5",
     "discord.js": "^12.5.3",
     "discord.js-commando": "^0.12.3",

@@ -134,9 +134,20 @@ class Utils {
         return hours + ":" + minutes + ":" + seconds;
     }
 
-    replaceAll(str, match, replacement){
-        return str.replace(new RegExp(escapeRegExp(match), 'g'), ()=>replacement);
-     }
+    replaceAll(str, match, replacement) {
+        return str.replace(new RegExp(escapeRegExp(match), 'g'), () => replacement);
+    }
+
+    createVoiceID() {
+        const all = "abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
+        let voiceKey = '';
+        for (let i = 0; i < 6; i++) {
+            const random = Math.floor((Math.random() * all.length) + 1);
+            const char = all.charAt(random);
+            voiceKey += char
+        }
+        return voiceKey;
+    }
 }
 
 class DateUtils {
