@@ -39,18 +39,16 @@ module.exports = class MChannelCMD extends Command {
             { guildID: message.guild.id },
         ).toArray();
         if (action === "create") {
-            let category, voicechannel;
+            let category = null, voicechannel;
             const master = this.client.provider.getVCCollection().find({
                 $and: [
                     { guildID: message.guild.id },
                     { type: "master" }
                 ]
             }).toArray();
-            const masterlength = master ? master.length + 1 : 1;
+            const masterlength = master.length > 0 ? master.length + 1 : 1;
             if (totalChannel >= VoiceSettings.limit || message.guild.channels.cache.size > 250) return message.reply("Limit exceeded");
-            if (VoiceSettings.categoryID) {
-                category = VoiceSettings.categoryID;
-            } else if (!VoiceSettings.categoryID && message.channel.parentID) {
+            if (message.channel.parentID) {
                 category = message.channel.parentID
             }
             try {
