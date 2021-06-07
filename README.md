@@ -24,8 +24,13 @@ Giảng viên: Thầy Nguyễn Lê Minh. 
 - Quản lý danh sách từ ngữ không phù hợp (anti badword)
 	+ Thêm/Xóa/Sửa từ ngữ không phù hợp trong danh sách
 	+ Xem lại danh sách từ ngữ không phù hợp
+- Quản lý kênh đàm thoại tuỳ chỉnh
+	+ Tạo/Xóa/Cập nhật kênh đàm thoại
+	+ Xem các thông tin của kênh đàm thoại
 - Liên hệ: tại máy chủ hỗ trợ
-2. 
+- Thực thi các lệnh bot có nếu đủ quyền thực thi
+2. Chủ sở hữu con bot
+- Quản lý các cài đặt của user và tất cả máy chủ 
 3. Bot
 - Chống user nhắn tin những từ ngữ không phù hợp
 - Phát nhạc từ Youtube, SoundCloud, … (thông qua thư viện)
@@ -35,14 +40,9 @@ Giảng viên: Thầy Nguyễn Lê Minh. 
 - Quản lý các cài đặt tại máy chủ
 	+ Thêm/Xóa/Sửa các cài đặt
 	+ Xem lại các cài đặt của bot tại máy chủ
-- Quản lý kênh đàm thoại tuỳ chỉnh
-	+ Tạo/Xóa/Cập nhật kênh đàm thoại
-	+ Xem các thông tin của kênh đàm thoại
 - Quản lý chống spam tin nhắn (anti spam)
-- Thực thi các lệnh bot có nếu đủ quyền thực thi
 - Đăng nhâp: Người dùng muốn vảo hệ thống phải tiến hành đăng nhâp, nếu không có tài khoản thì tiến hành đăng kí tài khoản discord
 2. Chủ sở hữu con bot
-- Quản lý các cài đặt của user và tất cả máy chủ 
 - Quản lý log
 - Quản lý thông tin user 
 3. Bot
