@@ -14,6 +14,9 @@ Giảng viên: Thầy Nguyễn Lê Minh. 
 
 ## Phần 2: Các chức năng đã hoàn thành:
 1. User
+- Quản lý các cài đặt tại máy chủ
+	+ Thêm/Xóa/Sửa các cài đặt
+	+ Xem lại các cài đặt của bot tại máy chủ
 - Quản lý trình phát nhạc
 	+ Tạo/Xóa/Sửa trình phát nhạc
 	+ Xem các cài đặt của trình phát nhạc
@@ -29,6 +32,7 @@ Giảng viên: Thầy Nguyễn Lê Minh. 
 	+ Xem các thông tin của kênh đàm thoại
 - Liên hệ: tại máy chủ hỗ trợ
 - Thực thi các lệnh bot có nếu đủ quyền thực thi
+- Đăng nhâp: Người dùng muốn vảo hệ thống phải tiến hành đăng nhâp, nếu không có tài khoản thì tiến hành đăng kí tài khoản discord
 2. Chủ sở hữu con bot
 - Quản lý các cài đặt của user và tất cả máy chủ 
 3. Bot
@@ -37,11 +41,7 @@ Giảng viên: Thầy Nguyễn Lê Minh. 
 
 ## Phần 3: Các chức năng chưa hoàn thành:
 1. User
-- Quản lý các cài đặt tại máy chủ
-	+ Thêm/Xóa/Sửa các cài đặt
-	+ Xem lại các cài đặt của bot tại máy chủ
 - Quản lý chống spam tin nhắn (anti spam)
-- Đăng nhâp: Người dùng muốn vảo hệ thống phải tiến hành đăng nhâp, nếu không có tài khoản thì tiến hành đăng kí tài khoản discord
 2. Chủ sở hữu con bot
 - Quản lý log
 - Quản lý thông tin user 
