@@ -6,6 +6,7 @@ const path = require("path");
 const Player = require("./Player");
 const Database = require("./Database");
 const { Utils, DateUtils } = require("./Util");
+const Dashboard = require("../dashboard/Dashboard");
 const { TOKEN } = process.env;
 
 const nodes = [
@@ -64,6 +65,10 @@ module.exports = class ExtendedClient extends CommandoClient {
          */
         this.dateutil = new DateUtils();
 
+        /**
+         * @type {Class}
+         */
+        this.dashboard = new Dashboard(this);
     }
 
     build() {

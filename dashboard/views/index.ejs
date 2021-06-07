@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/card.min.css"
+      integrity="sha512-u5E5vOHVsB0blcZniDNfaRkTfqdgjxIgLX17YlG0vjQyos7Z7b1BXLuhHZbF2JOVRrfNNd8P6v7fw87JaFw/Rg=="
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/button.min.css"
+      integrity="sha512-OD0ScwZAE5PCg4nATXnm8pdWi0Uk0Pp2XFsFz1xbZ7xcXvapzjvcxxHPeTZKfMjvlwwl4sGOvgJghWF2GRZZDw=="
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/icon.min.css"
+      integrity="sha512-8Tb+T7SKUFQWOPIQCaLDWWe1K/SY8hvHl7brOH8Nz5z1VT8fnf8B+9neoUzmFY3OzkWMMs3OjrwZALgB1oXFBg=="
+      crossorigin="anonymous"
+    />
+    <title><%- pageTitle %></title>
+    <meta http-equiv="cache-control" content="max-age=2592000000" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/img/icon.jpg"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/img/icon.jpg"
+    />
+    <link rel="manifest" href="/img/icon.jpg" />
+    <link rel="shortcut icon" href="/img/icon.jpg" />
+    <meta name="msapplication-TileColor" content="#2b5797" />
+    <meta
+      name="msapplication-config"
+      content="/static/icons/browserconfig.xml?v=6"
+    />
+    <meta name="theme-color" content="#ffffff" />
+
+    <meta property="og:title" content="YAGPDB" />
+    <meta
+      property="og:description"
+      content="Yet Another General Purpose Discord Bot"
+    />
+    <!-- For Social Media -->
+    <meta
+      property="description"
+      content="Yet Another General Purpose Discord Bot"
+    />
+    <!-- For search engines -->
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+      integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+      crossorigin="anonymous"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/landing-page-min.css" />
+    <!-- Custom Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:300,400,500,700|Poppins:500,700"
+      rel="stylesheet"
+    />
+    <title><%- pageTitle -%></title>
+    <link rel="stylesheet" href="/css/index.css">
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark bg-dark navbar-expand-sm fixed-top">
+      <a class="navbar-brand" href="#">
+        <img
+          src="img/icon.jpg"
+          width="50"
+          height="50"
+          class="d-inline-block align-top"
+          alt=""
+        />
+      </a>
+      <div class="collapse navbar-collapse poppins" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="https://status.alikuxac.me">Status</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="https://github.com/alikuxac">Github</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="https://info.alikuxac.me">Info</a>
+          </li>
+        </ul>
+
+        <form class="form-inline my-2 my-lg-0 mr-2">
+          <a class="btn btn-outline-danger my-2 my-sm-0" href="/manage"
+            >Control Panel</a
+          >
+        </form>
+        <% if (user) { %>
+        <form class="form-inline my-2 my-lg-0">
+          <a
+            class="btn btn-outline-danger my-2 my-sm-0"
+            href="/authorize/logout"
+            >Logout</a
+          >
+        </form>
+        <% } %>
+      </div>
+    </nav>
+    <!-- Intro -->
+    <div id="tscene" class="intro centered">
+      <header class="centered">
+        <div id="introo">
+          <div class="container centered">
+            <div class="row justify-content-md-center">
+              <div class="col col-md-10">
+                <h1 class="brand-heading bold intro_head"><br />Anikuxac</h1>
+                <p class="intro_headline">Another bot created by Alikuxac</p>
+              </div>
+            </div>
+            <div class="row justify-content-md-center">
+              <div class="col col-md-5">
+                <div class="numberbutton">
+                  <p class="intro-text poppins bold numbercentered">
+                    Joined Servers <br /><%- servers -%>
+                  </p>
+                </div>
+              </div>
+              <div class="col col-md-5">
+                <div class="numberbutton">
+                  <p class="intro-text poppins bold numbercentered">
+                    Total Users <br /><%- users -%>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <!-- Parallax Moving Background -->
+      <div id="m_background" data-depth="0.2"></div>
+    </div>
+    <!-- Footer -->
+    <footer id="footer" class="container container-section blank_no_bg mt-auto">
+      <div class="row justify-content-md-center footer">
+        <div class="col col-lg-12"></div>
+      </div>
+    </footer>
+    <footer id="footer">
+      <div class="container-fluid">
+        <div class="row text-center">
+          <div class="col-lg-12">
+            <p>
+              <b>Dashboard</b> created by
+              <a
+                class="link"
+                href="https://github.com/alikuxac"
+                rel="noopener"
+                target="_blank"
+                >Alikuxac</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- jQuery, Popper.Js, Bootstrap and Parallax -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js"></script>
+    <!-- Javascript for moving background (parallax) -->
+    <script>
+      var scene = document.getElementById("tscene");
+      var parallaxInstance = new Parallax(tscene, {
+        relativeInput: true,
+        hoverOnly: true,
+        pointerEvents: true,
+      });
+    </script>
+  </body>
+</html>

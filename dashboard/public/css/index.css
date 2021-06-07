@@ -1,0 +1,45 @@
+h1,
+p,
+li,
+ul {
+  color: #c8979b !important;
+}
+
+a.link:link,
+a.link:visited {
+  color: #ffcd00;
+}
+
+a.link:hover {
+  color: #f5d245;
+  text-decoration: none;
+}
+.nav-link {
+  color: #d7d9ce !important;
+}
+body {
+  min-height: 100vh;
+  position: relative;
+  background-image: url("/img/background.jpg");
+}
+.intro {
+  text-align: center;
+  padding-top: 5%;
+  padding-bottom: 16%;
+}
+#introo {
+  z-index: 1;
+}
+.numberbutton {
+  font-size: 30px;
+  position: relative;
+  margin-top: 30%;
+  text-align: center;
+  background-position: center;
+}
+#footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
