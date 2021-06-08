@@ -10,7 +10,7 @@ module.exports = class MChannelCMD extends Command {
             group: "admin",
             description: "Create new master channels or change their default settings.",
             userPermissions: ["ADMINISTRATOR"],
-            clientPermissions: ["MANAGE_CHANNEL"],
+            clientPermissions: ["MANAGE_CHANNELS"],
             args: [
                 {
                     key: "action",
