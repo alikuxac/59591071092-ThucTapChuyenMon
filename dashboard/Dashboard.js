@@ -4,6 +4,7 @@ const helmet = require("helmet");
 const session = require("express-session");
 const morgan = require("morgan");
 const MongoStore = require("connect-mongo");
+const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 3000;
 const { MONGO_HOST,
@@ -20,8 +21,8 @@ class DashBoard {
         this.app.use(cors());
         this.app.use(helmet());
         this.app.use(morgan("common"));
-        this.app.use(express.static(path.join(__dirname, "..", "public")));
-        this.app.set("views", path.join(__dirname, "..", "views"));
+        this.app.use(express.static(path.join(__dirname, "public")));
+        this.app.set("views", path.join(__dirname, "views"));
         this.app.set("view engine", "ejs");
         this.app.use(session({
             store: new MongoStore(
