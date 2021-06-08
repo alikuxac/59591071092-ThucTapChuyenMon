@@ -34,7 +34,7 @@ authorizeRoute.get('/callback', (req, res) => {
     })
         .then(res => res.json())
         .then(response => {
-            console.log(response)
+
             fetch('https://discordapp.com/api/users/@me', {
                 method: 'GET',
                 headers: {
@@ -59,7 +59,7 @@ authorizeRoute.get('/callback', (req, res) => {
                 .then(gResponse => {
 
                     req.session.guilds = gResponse.data;
-                    res.redirect('/');
+                    res.redirect('/manage');
                 });
         });
 })

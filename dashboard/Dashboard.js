@@ -17,9 +17,18 @@ class DashBoard {
         Object.defineProperty(this, "client", { value: client });
 
         this.app = app;
-
+        this.app.use(express.json()) // for parsing application/json
+        this.app.use(express.urlencoded({ extended: true }))
         this.app.use(cors());
-        this.app.use(helmet());
+        this.app.use(helmet({
+            contentSecurityPolicy: {
+                directives: {
+                    ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+                    "script-src": ["'self'"], 
+                    "img-src": ["'self'", "data:", "https:"]
+                }
+            }
+        }));
         this.app.use(morgan("common"));
         this.app.use(express.static(path.join(__dirname, "public")));
         this.app.set("views", path.join(__dirname, "views"));
@@ -39,7 +48,7 @@ class DashBoard {
             resave: false,
             saveUninitialized: false,
             cookie: {
-                maxAge: 1000 * 60 * 60 * 24 * 7 * 2 
+                maxAge: 1000 * 60 * 60 * 24 * 7 * 2
             }
         }));
         this.app.use((req, res, next) => {
@@ -49,7 +58,7 @@ class DashBoard {
         })
         this.app.use("/", require("./routes/index"));
 
-        this.app.listen(() => {
+        this.app.listen(parseInt(PORT), () => {
             console.log(`Dashboard is running at port ${PORT}`);
         })
     }

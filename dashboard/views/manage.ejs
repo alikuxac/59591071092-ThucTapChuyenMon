@@ -42,8 +42,10 @@
 <body>
     <div class="card" style="width: 18rem;">
         <% if (user.avatarURL) { %>
-            <img src="<%= user.avatarURL %>" class="card-img-top" alt="...">
-            <% } %>
+            <img src="<%= user.avatarURL %>" class="card-img-top rounded-circle" alt="...">
+            <% } else{ %>  
+              <img src="/img/default-avatar.png" class="card-img-top" alt="...">
+           <% } %>
         
         <div class="card-body">
           <h3 class="card-title"><%- user.tag -%></h3>
