@@ -24,7 +24,8 @@ class DashBoard {
             contentSecurityPolicy: {
                 directives: {
                     ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-                    "script-src": ["'self'"], 
+                    "script-src": ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+                    "script-src-elem": ["'self'","https:"],
                     "img-src": ["'self'", "data:", "https:"]
                 }
             }
