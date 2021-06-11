@@ -8,6 +8,8 @@ module.exports = class PrefixCMD extends Command {
             memberName: "prefix",
             group: "admin",
             description: "Changes the prefix of the server or shows you the current prefix if you just use this command",
+            format: '[prefix/"default"/"none"]',
+            examples: ['prefix', 'prefix -', 'prefix omg!', 'prefix default', 'prefix none'],
             guildOnly: true,
             args: [
                 {
@@ -35,11 +37,15 @@ module.exports = class PrefixCMD extends Command {
             if (!message.member.permissions.has('ADMINISTRATOR') && !this.client.isOwner(message.author)) {
                 return message.reply('Only administrators may change the command prefix.');
             }
-        } 
+        }
+        if (prefix === "reset" || prefix === "none"){
+            await this.client.provider.setGuild(message.guild.id, 'prefix', this.client.commandPrefix);
+            message.guild.commandPrefix = this.client.commandPrefix;
+            return message.reply("reset prefix successfull");
+        }
 
         if (prefix.split(" ").length > 0) return message.reply('your new prefix cannot have spaces!');
         await this.client.provider.setGuild(message.guild.id, 'prefix', prefix);
-
         message.guild.commandPrefix = prefix;
         return message.channel.send(`The prefix has been changed to ${prefix}`);
     }
