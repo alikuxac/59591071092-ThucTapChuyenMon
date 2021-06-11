@@ -83,10 +83,10 @@ module.exports = class ExtendedClient extends CommandoClient {
             .registerDefaultGroups()
             .registerDefaultCommands({
                 help: true,
-                prefix: true,
+                prefix: false,
                 eval: true,
                 ping: true,
-                commandState: true,
+                commandState: false,
                 unknownCommand: false,
             })
             .registerGroups(require(path.join(__dirname, "..", "config", "command_group")))
