@@ -38,7 +38,8 @@
           <form action="/manage/<%=guild.id%>/voice" method="POST" novalidate class="formsinput">
 
         <div class="form-group">
-          <% let checked = settings.status ? "checked" : "";
+          <% let checked = settings.status ? true : false;
+              let check = checked ? "checked" : "";
               let limit = settings.limit;
               let log = settings.log;
               let logname = log ? guild.channels.cache.get(log).name : "None";
@@ -53,20 +54,18 @@
                 <span class="input-group-text" id="limit" >Status: </span>
               </div>
               <input class="form-control" id="statusCheck" type="checkbox" data-toggle="toggle" data-on="Enabled" data-off="Disabled" data-onstyle="success" 
-              data-offstyle="danger" name="status" value="<%= checked %>" <%= checked %> />
+              data-offstyle="danger" name="status" value="<%= settings.status %>" onclick="updateStatus(this.checked)" <%= check %>  />
             </div>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text" for="limitInput">Limit</span>
               </div>
               <input type="text" class="form-control-plaintext" id="limitText" value="<%= limit %>" readonly>
-              <!-- <span id="limitVal"></span> -->
-              <!-- <input type="text" class="form-control" placeholder="50" aria-label="limit" aria-describedby="limitInput" minlength="1" maxlength="3" id="limit" name="limit" value= "<%= limit %>" required> -->
               <input type="range" class="custom-range" id="limitInput" name="limit" min="0" max="250" onchange="updateVal(this.value)" oninput="updateVal(this.value)" value="<%= limit %>">
             </div>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
-                <label class="input-group-text" for="inputGroupSelect01">Options</label>
+                <label class="input-group-text" for="selectLog">Options</label>
               </div>
               <select class="form-control custom-select" id="selectLog" name="log">
                 <% if (log) { %>
@@ -95,12 +94,10 @@
         document.getElementById("limitText").value = val;
       }
 
-    // let submitBtn = document.getElementById("submitBtn")
-    // submitBtn.addEventListener("click", function(e) {
-    //   e.preventDefault();
-    //   // submitBtn.submit()
-    // })
-    
+      function updateStatus(checked){
+        let val = checked ? "true" : "false"
+        document.getElementById("status").value = val;
+      }
     </script>
     <%- include('../partials/cdn_body.ejs') %>
     </body>
