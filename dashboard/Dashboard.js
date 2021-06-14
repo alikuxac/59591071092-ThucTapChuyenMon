@@ -25,7 +25,8 @@ class DashBoard {
                 directives: {
                     ...helmet.contentSecurityPolicy.getDefaultDirectives(),
                     "script-src": ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
-                    "script-src-elem": ["'self'","https:"],
+                    "script-src-elem": ["'self'","https:", "'unsafe-inline'", "'unsafe-eval'"],
+                    "script-src-attr": ["none", "'unsafe-inline'"],
                     "img-src": ["'self'", "data:", "https:"]
                 }
             }
@@ -55,7 +56,8 @@ class DashBoard {
         this.app.use((req, res, next) => {
             req.user = req.session.user;
             req.client = client;
-            next()
+            if (!client.provider.isReady) return res.send("Website is not ready. Please try again");
+            next();
         })
         this.app.use("/", require("./routes/index"));
 
