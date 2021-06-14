@@ -32,7 +32,7 @@ manage_route.post("/:id", async (req, res, next) => {
 manage_route.get("/:id/voice", (req, res, next) => {
     const serverID = req.serverID;
     const voiceSettings = req.client.provider.getGuild(serverID, "voice");
-    return res.render('manage/voice', { pageTitle: "Dashboard", serverID, user: req.user, guild, req: req, settings: voiceSettings });
+    return res.render('manage/voice', { pageTitle: "Dashboard", serverID, user: req.user, guild: req.guild, req: req, settings: voiceSettings });
 })
 
 manage_route.post("/:id/voice", async (req, res, next) => {
