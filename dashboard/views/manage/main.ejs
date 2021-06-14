@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title><%- pageTitle %></title>
+        <%- include('../partials/cdn.ejs') %>
+    </head>
+    <body>
+        <%- include('../partials/navbar.ejs') %>
+        <div class="container">
+            <br>
+            <div class="media">
+                <div class="media-left">
+                  <a href="#">
+                    <img style="height:100;width:100;border-radius: 50%;"class="media-object" onerror="this.src = 'https://discordapp.com/assets/322c936a8c8be1b803cd94861bdfa868.png';" src="https://cdn.discordapp.com/icons/<%=guild.id%>/<%=guild.icon%>.png" alt="...">
+                  </a>
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading" style="margin-left: 10px;"><%=guild.name%></h4>
+                </div>
+              </div>
+
+
+    <hr>
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active "  href="/manage/<%= guild.id %>" role="button">Setup</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link "  href="/manage/<%= guild.id %>/voice" role="button">Voice</a>
+      </li>
+      </ul>
+      <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade active show" id="setup">
+          <div id="messages" class="hide" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <div id="messages_content"></div>
+          </div>
+          <br>
+        <form action="/manage/<%=guild.id%>" method="POST" id="form">
+        <div class="form-group">
+          <div class="form-group">
+            <label for="exampleTextarea">Prefix</label>
+            <textarea minlength="1" maxlength="8" class="form-control" id="prefix" name="prefix" rows="1" required><%=prefix%></textarea>
+            <br>
+          </div>
+          <input class="btn btn-secondary" type="submit" value="Submit" id="submitBtn">
+        </form>
+
+        
+        </div>
+        </div>
+
+      </div>
+    </div>
+    <%- include('../partials/cdn_body.ejs') %>
+    </body>
+</html>

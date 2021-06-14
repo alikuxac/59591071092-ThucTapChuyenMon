@@ -1,0 +1,107 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title><%- pageTitle %></title>
+    <%- include('../partials/cdn.ejs') %>
+</head>
+    <body>
+      <%- include('../partials/navbar.ejs') %>
+        <div class="container">
+            <br>
+            <div class="media">
+                <div class="media-left">
+                  <a href="#">
+                    <img style="height:100;width:100;border-radius: 50%;"class="media-object" onerror="this.src = 'https://discordapp.com/assets/322c936a8c8be1b803cd94861bdfa868.png';" src="https://cdn.discordapp.com/icons/<%=guild.id%>/<%=guild.icon%>.png" alt="...">
+                  </a>
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading" style="margin-left: 10px;"><%=guild.name%></h4>
+                </div>
+              </div>
+            
+
+    <hr>
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link" href="/manage/<%= guild.id %>" role="button">Setup</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="/manage/<%= guild.id %>/voice" role="button">Voice</a>
+      </li>
+      </ul>
+      <div id="myTabContent" class="tab-content">
+
+        <div class="tab-pane fade active show" id="setup">
+          <br>
+          <form action="/manage/<%=guild.id%>/voice" method="POST" novalidate class="formsinput">
+
+        <div class="form-group">
+          <% let checked = settings.status ? "checked" : "";
+              let limit = settings.limit;
+              let log = settings.log;
+              let logname = log ? guild.channels.cache.get(log).name : "None";
+              let channels = guild.channels.cache.filter(channel => channel.type === "text").sort((a, b) => b.rawPostion - a.rawPostion).array();
+
+          %>
+          
+          <div class="form-group">
+
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="limit" >Status: </span>
+              </div>
+              <input class="form-control" id="statusCheck" type="checkbox" data-toggle="toggle" data-on="Enabled" data-off="Disabled" data-onstyle="success" 
+              data-offstyle="danger" name="status" value="<%= checked %>" <%= checked %> />
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" for="limitInput">Limit</span>
+              </div>
+              <input type="text" class="form-control-plaintext" id="limitText" value="<%= limit %>" readonly>
+              <!-- <span id="limitVal"></span> -->
+              <!-- <input type="text" class="form-control" placeholder="50" aria-label="limit" aria-describedby="limitInput" minlength="1" maxlength="3" id="limit" name="limit" value= "<%= limit %>" required> -->
+              <input type="range" class="custom-range" id="limitInput" name="limit" min="0" max="250" onchange="updateVal(this.value)" oninput="updateVal(this.value)" value="<%= limit %>">
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Options</label>
+              </div>
+              <select class="form-control custom-select" id="selectLog" name="log">
+                <% if (log) { %>
+                  <option value="<%= log %>" selected><%= logname %></option>
+                  <option value="" >None</option>
+                <% } else { %>
+                  <option value="" selected>None</option>
+                <% } %>
+                
+                <% channels.forEach(channel => { %>
+                 <option value="<%= channel.id %>"><%= channel.name %> </option>
+                <% }) %>
+              </select>
+            </div>
+          </div>
+          <input class="btn btn-secondary" type="submit" value="Submit" id="submitBtn" >
+        </form>
+
+        </div>
+        </div>
+
+      </div>
+    </div>
+    <script>
+      function updateVal(val) {
+        document.getElementById("limitText").value = val;
+      }
+
+    // let submitBtn = document.getElementById("submitBtn")
+    // submitBtn.addEventListener("click", function(e) {
+    //   e.preventDefault();
+    //   // submitBtn.submit()
+    // })
+    
+    </script>
+    <%- include('../partials/cdn_body.ejs') %>
+    </body>
+</html>
