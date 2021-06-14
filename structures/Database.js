@@ -1,5 +1,6 @@
 const mongodb = require("mongodb");
 const Commando = require("discord.js-commando");
+const { Collection } = require("discord.js");
 const { MONGO_HOST, MONGO_USERNAME, MONGO_PASSWORD, MONGO_PORT, NODE_ENV } = process.env;
 const guildsettingskeys = require("../config/defaultServerSettings.json");
 const usersettingskeys = require("../config/defaultUserSettings.json");
@@ -11,10 +12,11 @@ class CustomProvider extends Commando.SettingProvider {
 
         this.url = `mongodb://${encodeURIComponent(MONGO_USERNAME)}:${encodeURIComponent(MONGO_PASSWORD)}@${encodeURIComponent(MONGO_HOST)}:${encodeURIComponent(MONGO_PORT)}/?authMechanism=DEFAULT&authSource=admin`;
         Object.defineProperty(this, "client", { value: null, writable: true });
-        this.guildSettings = new Map();
-        this.userSettings = new Map();
-        this.botSettings = new Map();
-        this.listeners = new Map();
+        this.utilSettings = new Collection();
+        this.guildSettings = new Collection();
+        this.userSettings = new Collection();
+        this.botSettings = new Collection();
+        this.listeners = new Collection();
         this.isReady = false;
     }
     async init(client) {
@@ -41,11 +43,14 @@ class CustomProvider extends Commando.SettingProvider {
         const botSettingsCollection = this.db.collection("Bot");
         const { botSettings } = this;
         const VoiceChannelCollection = this.db.collection("VoiceChannel");
+        const SettingsCollection = this.db.collection("Settings");
+        const { utilSettings } = this;
 
         await guildSettingsCollection.createIndex("guildID", { unique: true });
         await userSettingsCollection.createIndex("userID", { unique: true });
         await botSettingsCollection.createIndex("botconfs", { unique: true });
         await VoiceChannelCollection.createIndex("channelID", { unique: true });
+        await SettingsCollection.createIndex("guildID", { unique: true });
 
         /* eslint guard-for-in: 0 */
         for (const guild in client.guilds.cache.array()) {
@@ -68,6 +73,26 @@ class CustomProvider extends Commando.SettingProvider {
                 console.warn(`Error while creating document of guild ${client.guilds.cache.array()[guild].id}`);
                 console.warn(err);
             }
+
+            try {
+                const resultSettings = await SettingsCollection.findOne({ guildID: client.guilds.cache.array()[guild].id });
+                let CMDsetting;
+
+                if (!resultSettings) {
+                    // Can"t find DB make new one.
+                    CMDsetting = {};
+                    SettingsCollection.insertOne({ guildID: client.guilds.cache.array()[guild].id, settings: CMDsetting });
+                }
+                if (resultSettings && resultSettings.settings) {
+                    CMDsetting = resultSettings.settings;
+                }
+                this.setupGuild(client.guilds.cache.array()[guild].id, CMDsetting)
+                utilSettings.set(client.guilds.cache.array()[guild].id, CMDsetting);
+            }
+            catch (err) {
+                console.warn(`Error while creating document of guild ${client.guilds.cache.array()[guild].id}`);
+                console.warn(err);
+            }
         }
 
         try {
@@ -85,6 +110,25 @@ class CustomProvider extends Commando.SettingProvider {
                 settings = result.settings;
             }
             guildSettings.set("global", settings);
+        } catch (err) {
+            console.warn("Error while creating guild global document");
+            console.warn(err);
+        }
+        try {
+            const result = await SettingsCollection.findOne({ guildID: "global" });
+            let settings;
+
+            if (!result) {
+                // Could not load global, do new one
+                settings = {};
+                SettingsCollection.insertOne({ guildID: "global", settings });
+            }
+
+            if (result && result.settings) {
+                settings = result.settings;
+            }
+            this.setupGuild("global", settings);
+            utilSettings.set("global", settings);
         }
         catch (err) {
             console.warn("Error while creating guild global document");
@@ -204,6 +248,25 @@ class CustomProvider extends Commando.SettingProvider {
         // Remove all listeners from the client
         for (const [event, listener] of this.listeners) this.client.removeListener(event, listener);
         this.listeners.clear();
+    }
+
+    get(guildID, key, value) {
+        const settings = this.utilSettings.get(this.constructor.getGuildID(guildID));
+        return settings ? typeof settings[key] !== 'undefined' ? settings[key] : value : value;
+    }
+
+    async set(guild, key, value) {
+        let settings = {};
+        guild = this.constructor.getGuildID(guild);
+        const result = await this.db.collection("Settings").findOne({ guildID: guild });
+        if (result && result.settings) {
+            settings = result.settings;
+        }
+        settings[key] = value;
+        const settingsCollection = this.db.collection("Settings");
+        await settingsCollection.updateOne({ guildID: guild }, { $set: { settings: settings } });
+
+        return value;
     }
 
     // Guild method
