@@ -8,6 +8,7 @@ module.exports = async (client, message) => {
     if (message.author.bot) return;
     // Everything will trigger when provider is ready
     if (!client.provider.isReady) return;
+    // Ignore message from dm channel
     if (message.channel.type === "dm") return;
 
     // Check if guild setttings as same as default settings
@@ -55,6 +56,14 @@ module.exports = async (client, message) => {
     }
     else {
         await message.client.provider.setBotconfsComplete("botconfs", botsettingskeys);
+    }
+
+    if (!client.provider.getGuild(message.guild.id, "prefix")){
+        await client.provider.setGuild(message.guild.id, "prefix", client.commandPrefix)
+    }
+
+    if (!client.provider.getGuild(message.guild.id, "guildID")){
+        await client.provider.setGuild(message.guild.id, "guildID", message.guild.id)
     }
 
     const authorID = message.author.id;
