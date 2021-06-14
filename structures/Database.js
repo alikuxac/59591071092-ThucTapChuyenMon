@@ -223,18 +223,18 @@ class CustomProvider extends Commando.SettingProvider {
             .set("commandStatusChange", (guild, command, enabled) => this.set(guild, `cmd-${command.name}`, enabled))
             .set("groupStatusChange", (guild, group, enabled) => this.set(guild, `grp-${group.id}`, enabled))
             .set("guildCreate", (guild) => {
-                const settings = this.guildSettings.get(guild.id);
+                const settings = this.utilSettings.get(guild.id);
                 if (!settings) return;
                 this.setupGuild(guild.id, settings);
             })
             .set("commandRegister", (command) => {
-                for (const [guild, settings] of this.guildSettings) {
+                for (const [guild, settings] of this.utilSettings) {
                     if (guild !== "global" && !client.guilds.cache.has(guild)) continue;
                     this.setupGuildCommand(client.guilds.cache.get(guild), command, settings);
                 }
             })
             .set("groupRegister", (group) => {
-                for (const [guild, settings] of this.guildSettings) {
+                for (const [guild, settings] of this.utilSettings) {
                     if (guild !== "global" && !client.guilds.cache.has(guild)) continue;
                     this.setupGuildGroup(client.guilds.cache.get(guild), group, settings);
                 }
