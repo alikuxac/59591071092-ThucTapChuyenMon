@@ -22,7 +22,6 @@ class CustomProvider extends Commando.SettingProvider {
     async init(client) {
         try {
             this.dbClient = await mongodb.MongoClient.connect(this.url, { useNewUrlParser: true, useUnifiedTopology: true });
-            console.log("Connected to mongodb with mongodb");
         }
         catch (err) {
             console.log(err);
@@ -103,7 +102,6 @@ class CustomProvider extends Commando.SettingProvider {
                 // Could not load global, do new one
                 settings = {};
                 guildSettingsCollection.insertOne({ guildID: "global", settings });
-                this.setupGuild("global", settings);
             }
 
             if (result && result.settings) {
