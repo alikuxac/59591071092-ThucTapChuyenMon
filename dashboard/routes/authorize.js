@@ -57,8 +57,7 @@ authorizeRoute.get('/callback', (req, res) => {
             })
                 .then(res2 => res2.json())
                 .then(gResponse => {
-
-                    req.session.guilds = gResponse.data;
+                    req.session.guilds = gResponse;
                     res.redirect('/manage');
                 });
         });
