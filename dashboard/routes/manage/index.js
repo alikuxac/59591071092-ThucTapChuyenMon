@@ -35,7 +35,7 @@ manage_route.get("/:id/voice", (req, res, next) => {
     return res.render('manage/voice', { pageTitle: "Dashboard", serverID, user: req.user, guild, req: req, settings: voiceSettings });
 })
 
-manage_route.post("/:id/voice", (req, res, next) => {
+manage_route.post("/:id/voice", async (req, res, next) => {
     const serverID = req.serverID;
     const { status, limit, log } = req.body;
     const statusValue = status ? true : false;
