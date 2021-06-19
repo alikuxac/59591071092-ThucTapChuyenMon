@@ -26,14 +26,9 @@ module.exports = class SetLevelCMD extends Command {
         });
     }
     async run(message, { member, level }) {
-
-        let xp = Math.pow(level, 2) * 100;
+        
         try {
-            let leveling = this.client.provider.getUser(member.id, "leveling");
-            let server = leveling.server;
-            server[message.guild.id] = xp;
-            leveling["server"] = server;
-            await message.client.provider.setUser(member.id, "leveling", leveling);
+            await message.client.provider.SetLevel(member.id, message.guild.id, level);
             message.channel.send(`Set \`${member.nickname ? member.nickname : member.user.username}\`"s level to ${level}`)
         } catch (err) {
             message.channel.send(`Error occured while set user"s level`)

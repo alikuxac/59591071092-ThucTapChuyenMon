@@ -58,26 +58,23 @@ module.exports = async (client, message) => {
         await message.client.provider.setBotconfsComplete("botconfs", botsettingskeys);
     }
 
-    if (!client.provider.getGuild(message.guild.id, "prefix")){
+    if (!client.provider.getGuild(message.guild.id, "prefix")) {
         await client.provider.setGuild(message.guild.id, "prefix", client.commandPrefix)
     }
 
-    if (!client.provider.getGuild(message.guild.id, "guildID")){
+    if (!client.provider.getGuild(message.guild.id, "guildID")) {
         await client.provider.setGuild(message.guild.id, "guildID", message.guild.id)
     }
 
+    if (!client.provider.ChecktUserXPExist(message.authorid, message.guild.id)) {
+        await client.provider.NewXP(message.author.id, message.guild.id)
+    }
     const authorID = message.author.id;
     const guildID = message.guild.id;
-    if (!client.provider.getGuild(message.guild.id, "cooldown")[authorID]) {
-        const currentCooldowns = client.provider.getGuild(message.guild.id, "cooldown");
-        currentCooldowns[authorID] = {};
-        await client.provider.setGuild(message.guild.id, "cooldown", currentCooldowns);
-    }
 
-    let cooldowns = client.provider.getGuild(message.guild.id, "cooldown");
-    let xpcld = false;
-    let xp = client.provider.getUser(message.author.id, "leveling");
-    let serverXP = xp["server"][guildID] ? xp["server"][guildID] : 0;
+    let currentUser = await client.provider.GetCurrentUser(authorID, guildID);
+    const { xp, lastUpdated } = currentUser;
+    const lastUpdatedTime = new Date(lastUpdated).getTime()
 
     // level settings
     const levelSettings = client.provider.getGuild(message.guild.id, "leveling");
@@ -91,29 +88,13 @@ module.exports = async (client, message) => {
     const channelList = excludeSettings.channel;
     const cateList = excludeSettings.category;
 
-    if (userList.includes(message.author.id) || (message.channel.parentID && cateList.includes(message.channel.parentID)) || channelList.includes(message.channel.id) || roleList.some(id => message.member.roles.cache.has(id))) {
-        xpcld = true;
-    }
-
-    if (cooldowns[message.author.id]["leveling"]) {
-        const expirationTime = cooldown[authorID]["leveling"];
-        const nextexpirationTime = now + xpSettings.cooldown;
-        // If cooldown exprired
-        if (now < expirationTime) {
-            xpcld = true;
-        } else {
-            cooldown[authorID]["leveling"] = nextexpirationTime;
-            await client.provider.setGuild(message.guild.id, "cooldown", cooldown);
-        }
-    }
-
-    if (!xpcld) {
+    if ((!userList.includes(message.author.id) || (message.channel.parentID && !cateList.includes(message.channel.parentID)) || !channelList.includes(message.channel.id) || !roleList.some(id => message.member.roles.cache.has(id))) && now > lastUpdatedTime + xpSettings.cooldown) {
+        // xpcld = true;
         let amtToGive = Math.floor(Math.random() * (xpSettings.maxxp - xpSettings.minxp + 1)) + xpSettings.minxp;
-        let currentlvl = Math.floor(Math.sqrt(serverXP) * 0.1);
-        serverXP += amtToGive;
-        let nextlvl = Math.floor(Math.sqrt(serverXP) * 0.1);
-        xp["server"][guildID] = serverXP;
-        await client.provider.setUser(message.author.id, "leveling", xp);
+        let currentlvl = Math.floor(Math.sqrt(xp) * 0.1);
+        let newXP = xp + amtToGive;
+        let nextlvl = Math.floor(Math.sqrt(newXP) * 0.1);
+        await client.provider.UpdateXP(authorID, guildID, newXP);
         if (currentlvl !== nextlvl) {
             for (const key in roleReward) {
                 let reward = roleReward[key];
@@ -128,7 +109,7 @@ module.exports = async (client, message) => {
 
     const bwSettings = client.provider.getGuild(message.guild.id, "badword");
     if (bwSettings.list.length > 0) {
-        const bwExist = bwSettings.list.length > 1 ? new RegExp(bwSettings.list.join("|")).test(message.content) : new RegExp(bwSettings.list.join("")).test(message.content) ;
+        const bwExist = bwSettings.list.length > 1 ? new RegExp(bwSettings.list.join("|")).test(message.content) : new RegExp(bwSettings.list.join("")).test(message.content);
         if (bwSettings.status && message.content && bwExist && !message.member.hasPermission("ADMINISTRATOR") && !bwSettings.ignorerole.some(id => member.roles.cache.has(id))) {
             message.reply("bad word detected, be careful");
             await message.delete({ timeout: 1000 })

@@ -27,11 +27,7 @@ module.exports = class SetXPCMD extends Command {
     async run(message, { member, xp }) {
 
         try {
-            let leveling = this.client.provider.getUser(member.id, "leveling");
-            let server = leveling.server;
-            server[message.guild.id] = xp;
-            leveling["server"] = server;
-            await message.client.provider.setUser(member.id, "leveling", leveling)
+            await message.client.provider.SetXP(member.id, message.guild.id, xp);
             message.channel.send(`Set \`${member.nickname ? member.nickname : member.user.username}\`"s xp to ${xp}`)
         } catch (err) {
             message.channel.send(`Error occured while setting user"s xp`);

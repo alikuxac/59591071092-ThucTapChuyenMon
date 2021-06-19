@@ -12,6 +12,7 @@ module.exports = class RankXP extends Command {
             userPermissions: ["SEND_MESSAGES"],
             clientPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
             examples: ["xp", "lvl"],
+            guildOnly: true,
             args: [
                 {
                     key: "member",
@@ -26,7 +27,7 @@ module.exports = class RankXP extends Command {
 
         let barEmpty = "□", barFull = "■", barDisplay = "";
         let name = member.nickname ? member.nickname : member.user.username
-        let xp = message.client.provider.getUser(member.id, "xp", 0);
+        let xp = await this.client.provider.GetXP(member.id, message.guild.id);
 
         let currentlvl = Math.floor(Math.sqrt(xp) * 0.1);
         let current = xp < 101 ? xp : xp - Math.pow(currentlvl, 2) * 100;
@@ -39,9 +40,8 @@ module.exports = class RankXP extends Command {
             if (percentage >= i) { barDisplay += barFull; }
             else { barDisplay += barEmpty; }
         }
-        const xpArr = await message.client.provider.getDatabase().collection("Users").aggregate([{ $sort: { "settings.xp": -1 } }]).toArray();
-        let found = xpArr.find(docu => docu.userID == member.id)
-        let rank = xpArr.indexOf(found) + 1
+        let getrank = await this.client.provider.getCurrentRank(member.id, message.guild.id);
+        let rank = getrank !== 0 ? getrank : "No rank";
         const rankEmbed = new MessageEmbed()
             .setTitle(`❯ ${name}"s Rank`)
             .setColor("RANDOM")

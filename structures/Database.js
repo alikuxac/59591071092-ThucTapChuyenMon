@@ -44,6 +44,7 @@ class CustomProvider extends Commando.SettingProvider {
         const VoiceChannelCollection = this.db.collection("VoiceChannel");
         const SettingsCollection = this.db.collection("Settings");
         const { utilSettings } = this;
+        const levelingCollection = this.db.collection("Levelings");
 
         await guildSettingsCollection.createIndex("guildID", { unique: true });
         await userSettingsCollection.createIndex("userID", { unique: true });
@@ -91,6 +92,21 @@ class CustomProvider extends Commando.SettingProvider {
             catch (err) {
                 console.warn(`Error while creating document of guild ${client.guilds.cache.array()[guild].id}`);
                 console.warn(err);
+            }
+            const guildID = client.guilds.cache.array()[guild].id
+            for (const members in client.guilds.cache.array()[guild].members.cache.array()) {
+                if (client.guilds.cache.array()[guild].members.cache.array()[members].user.bot) continue;
+                try {
+                    const levelfind = await levelingCollection.findOne({ userID: client.guilds.cache.array()[guild].members.cache.array()[members].user.id, guildID });
+                    let levels;
+                    if (!levelfind) {
+                        levels = { userID: client.guilds.cache.array()[guild].members.cache.array()[members].user.id, guildID, xp: 0, lastUpdated: new Date() };
+                        levelingCollection.insertOne(levels)
+                    }
+                } catch (err) {
+                    console.warn(`Error while creating leveling document of guild ${client.guilds.cache.array()[guild].id}`);
+                    console.warn(err);
+                }
             }
         }
 
@@ -209,6 +225,23 @@ class CustomProvider extends Commando.SettingProvider {
         }
         catch (err) {
             console.warn("Error while creating botconfs global document");
+            console.warn(err);
+        }
+
+        try {
+            const result = await levelingCollection.findOne({ userID: "global", guildID: "global" });
+            let settings;
+
+            if (!result) {
+                // Could not load global, do new one
+                settings = {};
+                levelingCollection.insertOne({ userID: "global", guildID: "global", xp: 0, lastUpdated: new Date() });
+            }
+            if (result && result.settings) {
+                settings = result.settings;
+            }
+        } catch (err) {
+            console.warn("Error while creating leveling global document");
             console.warn(err);
         }
 
@@ -634,6 +667,178 @@ class CustomProvider extends Commando.SettingProvider {
         }
     }
 
+    // Leveling method
+    async ChecktUserXPExist(userID, guildID) {
+        const LvlCollection = this.db.collection("Levelings");
+        const findUser = await LvlCollection.findOne({ userID: userID, guildID: guildID });
+        return findUser ? true : false;
+    }
+
+    async GetCurrentUser(userID, guildID) {
+        const LvlCollection = this.db.collection("Levelings");
+        const findUser = await LvlCollection.findOne({ userID: userID, guildID: guildID });
+        return findUser;
+    }
+    async GetXP(userID, guildID) {
+        const LvlCollection = this.db.collection("Levelings");
+        const findUser = await LvlCollection.findOne({ userID: userID, guildID: guildID });
+        if (!findUser) return 0;
+        return findUser.xp;
+    }
+
+    async NewXP(userID, guildID) {
+        const LvlCollection = this.db.collection("Levelings");
+        // const defVal = {
+        //     userID,
+        //     guildID,
+        //     xp: 0,
+        //     lastUpdated: new Date()
+        // };
+        await LvlCollection.insertOne({
+            userID,
+            guildID,
+            xp: 0,
+            lastUpdated: new Date()
+        });
+    }
+
+    async UpdateXP(userID, guildID, newXP) {
+        const LvlCollection = this.db.collection("Levelings");
+        await LvlCollection.updateOne(
+            {
+                userID,
+                guildID
+            },
+            {
+                $set: {
+                    xp: newXP,
+                    lastUpdated: new Date()
+                }
+            }
+        );
+
+    }
+
+    async AppendXP(userID, guildID, newXP) {
+        const LvlCollection = this.db.collection("Levelings");
+        const checkUser = await LvlCollection.findOne({ userID, guildID });
+        const xp = checkUser.xp;
+        const append = await LvlCollection.updateOne(
+            {
+                userID,
+                guildID
+            },
+            {
+                $set: {
+                    xp: xp + newXP
+                }
+            }
+        );
+
+        return append;
+    }
+
+    async SpliceXP(userID, guildID, newXP) {
+        const LvlCollection = this.db.collection("Levelings");
+        const checkUser = await LvlCollection.findOne({ userID, guildID });
+        const xp = checkUser.xp;
+        const splice = await LvlCollection.updateOne(
+            {
+                userID,
+                guildID
+            },
+            {
+                $set: {
+                    xp: xp - newXP
+                }
+            }
+        );
+
+        return splice;
+    }
+
+    async SetXP(userID, guildID, newXP) {
+        const LvlCollection = this.db.collection("Levelings");
+        await LvlCollection.updateOne(
+            {
+                userID,
+                guildID
+            },
+            {
+                $set: {
+                    xp: newXP
+                }
+            }
+        );
+
+    }
+
+    async SetLevel(userID, guildID, level) {
+        const LvlCollection = this.db.collection("Levelings");
+        const xp = Math.pow(level, 2) * 100; await LvlCollection.updateOne(
+            {
+                userID,
+                guildID
+            },
+            {
+                $set: {
+                    xp
+                }
+            }
+        );
+
+    }
+
+    async ResetXP(userID, guildID) {
+        const LvlCollection = this.db.collection("Levelings");
+        await LvlCollection.updateOne(
+            {
+                userID,
+                guildID
+            },
+            {
+                $set: {
+                    xp: 0
+                }
+            }
+        );
+    }
+
+    // check if user in top 100 of server or not
+    async getCurrentRank(userID, guildID) {
+        const LvlCollection = this.db.collection("Levelings");
+        const leaderboard = await LvlCollection.aggregate(
+            [
+                { $match: { guildID } },
+                { $sort: { xp: -1 } }
+            ]
+        ).toArray();
+        const rank = leaderboard.findIndex(element => element.userID = userID);
+        return rank + 1;
+    }
+
+    async LeaderBoardXP(client, guildID) {
+        const LvlCollection = this.db.collection("Levelings");
+        const leaderboard = await LvlCollection.aggregate(
+            [
+                { $match: { guildID } },
+                { $sort: { xp: -1 } }
+            ]
+        ).toArray();
+        const leaderboardUser = [];
+        leaderboard.map(key => leaderboardUser.push(
+            {
+                userID: key.userID,
+                guildID: key.guildID,
+                xp: key.xp,
+                level: Math.floor(Math.sqrt(key.xp) * 0.1),
+                position: (leaderboard.findIndex(i => i.guildID === key.guildID && i.userID === key.userID) + 1),
+                username: client.users.cache.get(key.userID) ? client.users.cache.get(key.userID).username : "Unknown",
+                discriminator: client.users.cache.get(key.userID) ? client.users.cache.get(key.userID).discriminator : "0000"
+            }
+        ))
+        return leaderboardUser;
+    }
     // Another method
     getDatabase() {
         return this.db;

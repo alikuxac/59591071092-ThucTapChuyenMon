@@ -3,7 +3,7 @@ const Command = require("../../structures/Command");
 module.exports = class RemoveXPCMD extends Command {
     constructor(client) {
         super(client, {
-            name: "remove",
+            name: "removexp",
             memberName: "removexp",
             group: "level",
             aliases: ["rmxp"],
@@ -27,14 +27,11 @@ module.exports = class RemoveXPCMD extends Command {
 
     async run(message, { user, xp }) {
         const guildID = message.guild.id;
-        let userXP = message.client.provider.getUser(user.id, "leveling");
-        let serverXP = userXP["server"][guildID] ? userXP["server"][guildID] : 0;
 
-        serverXP -= xp;
         try {
-            userXP["server"][guildID] = serverXP;
-            await message.client.provider.setUser(user.id, "leveling", userXP);
-            return message.say(`Successully remove \`${xp}\` xp to \`${user.username}\`. User current xp: ${serverXP} `)
+             await message.client.provider.SpliceXP(user.id, guildID, xp);
+             let xpafter = await this.client.provider.GetXP(user.id, message.guild.id);
+            return message.say(`Successully add \`${xp}\` xp to \`${user.username}\`. User current xp: ${xpafter} `)
         } catch (err) {
             throw err;
         }
