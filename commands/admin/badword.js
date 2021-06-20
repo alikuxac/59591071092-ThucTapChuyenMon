@@ -110,10 +110,10 @@ module.exports = class BadWordCMD extends Command {
 
                 try {
                     await this.client.provider.setGuild(message.guild.id, "badword", bwSettings);
-                    message.say(`Added new bad word successully!`);
+                    message.say(`Removed bad word successully!`);
                 } catch (err) {
                     this.client.logger.error(err);
-                    message.say("Error while adding remove word");
+                    message.say("Error while removing bad word");
                 }
 
                 break;
