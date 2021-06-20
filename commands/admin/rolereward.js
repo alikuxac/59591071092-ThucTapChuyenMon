@@ -6,7 +6,7 @@ module.exports = class RoleRewardCMD extends Command {
         super(client, {
             name: "rolereward",
             memberName: "rolereward",
-            group: "level",
+            group: "admin",
             description: "Set role reward for server",
             userPermission: ["ADMINISTRATOR"],
             clientPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],

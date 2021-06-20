@@ -7,7 +7,7 @@ module.exports = class XpExclude extends Command {
             name: "xpexclude",
             memberName: "xpexclude",
             description: "Exclude XP in the server",
-            group: "level",
+            group: "admin",
             aliases: ["xpex"],
             guildOnly: true,
             userPermissions: ["SEND_MESSAGES", "ADMINISTRATOR"],

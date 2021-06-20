@@ -7,7 +7,7 @@ module.exports = class LevelingCMD extends Command {
         super(client, {
             name: "leveling",
             memberName: "leveling",
-            group: "level",
+            group: "admin",
             description: "Setup leveling thing for server",
             aliases: ["lvl"],
             guildOnly: true,
