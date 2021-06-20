@@ -104,8 +104,8 @@ module.exports = class BadWordCMD extends Command {
                 const arrRemove = value.toLowerCase().split(" ");
                 if (arrRemove.length > 1) return message.reply("currently support 1 word per command");
                 if (!bwListRemove.includes(arrRemove[0])) return message.reply("this word not in bad word list");
-                const index = bwListRemove.indexOf(arrRemove[0]);
-                bwListRemove.slice(index, 1);
+                const index = bwListRemove.findIndex(ele => ele === arrRemove[0]);
+                bwListRemove.splice(index, 1);
                 bwSettings["list"] = bwListRemove;
 
                 try {
