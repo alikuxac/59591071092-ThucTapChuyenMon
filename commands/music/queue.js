@@ -24,10 +24,7 @@ module.exports = class QueueCMD extends Command {
     async run(message, { page }) {
         //get the player instance
         const player = this.client.manager.players.get(message.guild.id);
-        if (!player) return message.reply("there is no player for this guild.").then(msg => {
-            try { msg.delete({ timeout: 5000 }).catch(e => this.client.logger.log("Couldn't delete message this is a catch to prevent a crash")); } catch { /* */ }
-        });
-
+        if (!player) return message.reply("there is no player for this guild.")
         const QueueEmbed = new MessageEmbed()
             .setAuthor(`Queue for ${message.guild.name}  -  [ ${player.queue.length} Tracks ]`, message.guild.iconURL({ dynamic: true }))
         //get the right tracks of the current tracks
@@ -56,9 +53,6 @@ module.exports = class QueueCMD extends Command {
             (message.member.nickname ? message.member.nickname : message.author.tag),
             message.author.displayAvatarURL({ dynamic: true })
         );
-        return message.channel.send({ embed: QueueEmbed }).then(msg => {
-            try { msg.delete({ timeout: 30000 }).catch(e => this.client.logger.log("Couldn't delete message this is a catch to prevent a crash")); } catch { /* */ }
-        });
-
+        return message.channel.send({ embed: QueueEmbed })
     }
 }

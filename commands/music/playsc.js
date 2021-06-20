@@ -24,14 +24,12 @@ module.exports = class PlayCMD extends Command {
         //get the channel instance from the Member
         const { channel } = message.member.voice;
         //if user not in a voice channel
-        if (!channel) return message.reply("you must in a voice channel to run command").then(msg => {
-            try { msg.delete({ timeout: 5000 }).catch(e => this.client.logger.log("Couldn't delete message this is a catch to prevent a crash")); } catch { /* */ }
-        });
+        if (!channel) return message.reply("you must in a voice channel to run command")
         //get the player instance
         const player = this.client.manager.players.get(message.guild.id);
         //f not in the same channel --> return
         if (player && message.member.voice.channel.id !== player.voiceChannel)
-            return message.channel.send(`You need to be in my voice channel to use this command!`).then(async msg => await msg.delete({ timeout: 5000 }).catch());
+            return message.channel.send(`You need to be in my voice channel to use this command!`)
 
         // Create the player 
         const newplayer = this.client.manager.create({
@@ -55,17 +53,12 @@ module.exports = class PlayCMD extends Command {
 
         switch (res.loadType) {
             case 'LOAD_FAILED':
-                return message.channel.send(res.exception.message).then(msg => {
-                    try {
-                        msg.delete({ timeout: 4000 }).catch(e => this.client.logger.log("couldn't delete message this is a catch to prevent a crash"));
-                    } catch { /* */ }
-                });
+                return message.channel.send(res.exception.message)
             case "NO_MATCHES":
-                return message.channel.send("There was no tracks found with that query.").then(async msg => await msg.delete({ timeout: 5000 }).catch());
+                return message.channel.send("There was no tracks found with that query.")
             case "TRACK_LOADED":
                 newplayer.queue.add(res.tracks[0]);
-                message.channel.send(`Enqueuing ${res.tracks[0].title}.`).then(async msg => await msg.delete({ timeout: 5000 }).catch());
-
+                message.channel.send(`Enqueuing ${res.tracks[0].title}.`)
                 if (newplayer.state !== "CONNECTED") {
                     newplayer.connect();
                     newplayer.set("playerauthor", message.author.id);
@@ -79,7 +72,7 @@ module.exports = class PlayCMD extends Command {
                 break;
             case 'PLAYLIST_LOADED':
                 newplayer.queue.add(res.tracks);
-                message.channel.send(`Enqueuing ${res.playlist.name}.`).then(async msg => await msg.delete({ timeout: 5000 }).catch());
+                message.channel.send(`Enqueuing ${res.playlist.name}.`)
 
                 if (newplayer.state !== "CONNECTED") {
                     newplayer.connect();
@@ -115,7 +108,7 @@ module.exports = class PlayCMD extends Command {
                 const first = collected.first().content;
                 if (first.toLowerCase() === "end") {
                     await resultMsg.delete().catch();
-                    return message.channel.send(":white_check_mark: | Cancelled selection.").then(async msg => await msg.delete({ timeout: 5000 }).catch());
+                    return message.channel.send(":white_check_mark: | Cancelled selection.")
                 }
 
                 const index = Number(first) - 1;
@@ -130,13 +123,12 @@ module.exports = class PlayCMD extends Command {
                 const track = res.tracks[index];
                 newplayer.queue.add(track);
                 await resultMsg.delete().catch();
-                message.channel.send(`:white_check_mark: | **Enqueuing:** \`${track.title}\`.`).then(async msg => await msg.delete({ timeout: 5000 }).catch());
+                message.channel.send(`:white_check_mark: | **Enqueuing:** \`${track.title}\`.`)
 
                 if (newplayer.state !== "CONNECTED") {
                     newplayer.connect();
                     newplayer.set("playerauthor", message.author.id);
                     newplayer.play();
-                    
                 } 
                 break;
             default:
@@ -147,7 +139,6 @@ module.exports = class PlayCMD extends Command {
             newplayer.connect();
             newplayer.set("playerauthor", message.author.id);
             newplayer.play();
-            if (ismanangerchannel(this.client, message.channel.id)) this.client.manager.util.edit_manager_message_playing(this.client, newplayer);
         } else {
             if (!newplayer.playing) {
                 newplayer.play();
