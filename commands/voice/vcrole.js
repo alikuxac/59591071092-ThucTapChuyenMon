@@ -7,7 +7,7 @@ module.exports = class VCroleCMD extends Command {
             name: "vcrole",
             memberName: "vcrole",
             group: "voice",
-            description: "Change voice custom channel name",
+            description: "Allow or ignore role to join this voice channel.",
             args: [
                 {
                     key: "action",

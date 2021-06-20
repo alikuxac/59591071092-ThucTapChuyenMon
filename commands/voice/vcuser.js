@@ -7,7 +7,7 @@ module.exports = class VCuserCMD extends Command {
             name: "vcuser",
             memberName: "vcuser",
             group: "voice",
-            description: "Change voice custom channel name",
+            description: "Allow or ignore specific user to join a voice channel",
             guildOnly: true,
             args: [
                 {
