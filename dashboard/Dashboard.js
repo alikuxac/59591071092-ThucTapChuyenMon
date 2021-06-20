@@ -7,10 +7,7 @@ const MongoStore = require("connect-mongo");
 const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 3000;
-const { MONGO_HOST,
-    MONGO_USERNAME,
-    MONGO_PASSWORD,
-    MONGO_PORT } = process.env
+const { MONGO_URL } = process.env
 
 class DashBoard {
     constructor(client) {
@@ -38,7 +35,7 @@ class DashBoard {
         this.app.use(session({
             store: new MongoStore(
                 {
-                    mongoUrl: `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}:${MONGO_PORT}/?authSource=admin`,
+                    mongoUrl: MONGO_URL,
                     mongoOptions: {
                         useNewUrlParser: true,
                         useUnifiedTopology: true

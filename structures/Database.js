@@ -1,7 +1,7 @@
 const mongodb = require("mongodb");
 const Commando = require("discord.js-commando");
 const { Collection } = require("discord.js");
-const { MONGO_HOST, MONGO_USERNAME, MONGO_PASSWORD, MONGO_PORT, NODE_ENV } = process.env;
+const {  NODE_ENV, MONGO_URL } = process.env;
 const guildsettingskeys = require("../config/defaultServerSettings.json");
 const usersettingskeys = require("../config/defaultUserSettings.json");
 const botsettingskeys = require("../config/defaultBotSettings.json");
@@ -10,7 +10,7 @@ class CustomProvider extends Commando.SettingProvider {
     constructor() {
         super();
 
-        this.url = `mongodb://${encodeURIComponent(MONGO_USERNAME)}:${encodeURIComponent(MONGO_PASSWORD)}@${encodeURIComponent(MONGO_HOST)}:${encodeURIComponent(MONGO_PORT)}/?authMechanism=DEFAULT&authSource=admin`;
+        this.url = MONGO_URL;
         Object.defineProperty(this, "client", { value: null, writable: true });
         this.utilSettings = new Collection();
         this.guildSettings = new Collection();
