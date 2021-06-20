@@ -150,7 +150,7 @@ module.exports = class BadWordCMD extends Command {
                 message.channel.send({ embed });
                 break;
             case "help":
-                const embed = new MessageEmbed()
+                const helpEmbed = new MessageEmbed()
                     .setTitle("Master Channel Help")
                     .setDescription(stripIndent`
                     ${prefix}badword reset: Reset settings.
@@ -161,7 +161,7 @@ module.exports = class BadWordCMD extends Command {
                     `)
                     .setColor("GREEN")
                     .setTimestamp();
-                message.channel.send({ embed });
+                message.channel.send({ embed: helpEmbed });
                 break;
             default:
                 break;
