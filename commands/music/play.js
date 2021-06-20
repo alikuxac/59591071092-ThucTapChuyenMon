@@ -10,6 +10,7 @@ module.exports = class PlayCMD extends Command {
             description: 'Play a song in Youtube',
             userPermissions: ['SEND_MESSAGES'],
             clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
+            examples: ["play Sài gòn đau lòng quá"],
             args: [
                 {
                     key: 'song',

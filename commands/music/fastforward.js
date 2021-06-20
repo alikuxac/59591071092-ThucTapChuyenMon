@@ -8,6 +8,7 @@ module.exports = class ForwardCMD extends Command {
             group: "music",
             aliases: ["forward"],
             description: "Forward the song (in seconds)",
+            examples: ["fastforward 50"],
             args: [
                 {
                     key: "number",

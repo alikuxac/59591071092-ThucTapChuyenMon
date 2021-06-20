@@ -10,6 +10,7 @@ module.exports = class RoleRewardCMD extends Command {
             description: "Set role reward for server",
             userPermission: ["ADMINISTRATOR"],
             clientPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
+            examples: ["rolereward add 5 @Bronze"],
             aliases: ["rr"],
             args: [
                 {

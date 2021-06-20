@@ -11,6 +11,7 @@ module.exports = class TakeRoleCMD extends Command {
             aliases: ["trole"],
             clientPermissions: ["MANAGE_ROLES"],
             userPermissions: ["MANAGE_ROLES"],
+            examples: ["takerole @Alikuxac Vip"],
             args: [
                 {
                     key: "member",

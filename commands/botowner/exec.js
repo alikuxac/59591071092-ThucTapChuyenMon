@@ -10,6 +10,7 @@ module.exports = class ExecCMD extends Command {
             group: "botowner",
             description: "Exec something",
             ownerOnly: true,
+            examples: ["exec npm -v"],
             args: [
                 {
                     key: "input",

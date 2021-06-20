@@ -9,6 +9,7 @@ module.exports = class ResetXPCMD extends Command {
             description: "Reset xp of user",
             userPermissions: ["ADMINISTRATOR"],
             clientPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
+            examples: ["resetxp @Alikuxac"],
             args: [
                 {
                     key: "member",

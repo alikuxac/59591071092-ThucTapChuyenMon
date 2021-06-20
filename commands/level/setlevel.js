@@ -11,6 +11,7 @@ module.exports = class SetLevelCMD extends Command {
             guildOnly: true,
             userPermissions: ["ADMINISTRATOR"],
             clientPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
+            examples: ["setlevel @Alikuxac 50"],
             args: [
                 {
                     key: "member",

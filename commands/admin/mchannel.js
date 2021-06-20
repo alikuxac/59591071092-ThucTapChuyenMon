@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-const { stripIndent } = require("common-tags")
+const { stripIndent } = require("common-tags");
 const Command = require("../../structures/Command");
 
 module.exports = class MChannelCMD extends Command {
@@ -9,13 +9,16 @@ module.exports = class MChannelCMD extends Command {
             memberName: "mchannel",
             group: "admin",
             description: "Create new master channels or change their default settings.",
+            guildOnly: true,
             userPermissions: ["ADMINISTRATOR"],
             clientPermissions: ["MANAGE_CHANNELS"],
+            examples: ["mchannel create"],
             args: [
                 {
                     key: "action",
                     prompt: "Give me a ID or action for me",
-                    type: "string"
+                    type: "string",
+                    default: "help"
                 },
                 {
                     key: "property",

@@ -9,6 +9,7 @@ module.exports = class VolumeCMD extends Command {
             description: 'Set volume of current player',
             userPermissions: ['SEND_MESSAGES'],
             clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
+            examples: ["volume 15"],
             args: [
                 {
                     key: 'volume',

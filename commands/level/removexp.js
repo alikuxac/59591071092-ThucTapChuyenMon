@@ -10,6 +10,7 @@ module.exports = class RemoveXPCMD extends Command {
             description: "Add xp to specific user",
             guildOnly: true,
             userPermissions: ["MANAGE_ROLES"],
+            examples: ["removexp @Alikuxac 100"],
             args: [
                 {
                     key: "user",

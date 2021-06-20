@@ -12,6 +12,7 @@ module.exports = class LockCMD extends Command {
             guildOnly: true,
             userPermissions: ["MANAGE_CHANNELS"],
             clientPermissions: ["MANAGE_CHANNELS"],
+            examples: ["lock #general announcement"],
             args: [
                 {
                     key: "channel",

@@ -12,6 +12,7 @@ module.exports = class XpExclude extends Command {
             guildOnly: true,
             userPermissions: ["SEND_MESSAGES", "ADMINISTRATOR"],
             clientPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
+            examples: ["xpexclude user @Alikuxac", "xpexclude role Spam"],
             args: [
                 {
                     key: "action",

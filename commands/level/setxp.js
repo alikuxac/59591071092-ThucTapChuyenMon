@@ -10,6 +10,7 @@ module.exports = class SetXPCMD extends Command {
             guildOnly: true,
             userPermissions: ["ADMINISTRATOR"],
             clientPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
+            examples: ["setxp @Alikuxac 100102"],
             args: [
                 {
                     key: "member",

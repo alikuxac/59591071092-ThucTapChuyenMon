@@ -10,6 +10,7 @@ module.exports = class KickCMD extends Commando.Command {
             description: "Kick a member from a server.",
             clientPermissions: ["KICK_MEMBERS"],
             userPermissions: ["KICK_MEMBERS"],
+            examples: ["kick @Alikuxac spam"],
             args: [
                 {
                     key: "member",

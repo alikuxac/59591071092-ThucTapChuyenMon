@@ -10,6 +10,7 @@ module.exports = class HideCMD extends Command {
             guildOnly: true,
             clientPermissions: ["MANAGE_CHANNELS"],
             userPermissions: ["MANAGE_CHANNELS"],
+            examples: ["hide #general"],
             args: [
                 {
                     key: "channel",

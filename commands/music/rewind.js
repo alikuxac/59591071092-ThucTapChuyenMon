@@ -7,6 +7,7 @@ module.exports = class RewindCMD extends Command {
             memberName: "rewind",
             group: "music",
             description: "Rewind the song (in seconds)",
+            examples: ["rewind 10"],
             args: [
                 {
                     key: "number",

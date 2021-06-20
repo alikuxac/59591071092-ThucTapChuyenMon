@@ -11,6 +11,7 @@ module.exports = class UnlockCMD extends Commando.Command {
             guildOnly: true,
             clientPermissions: ["MANAGE_CHANNELS"],
             userPermissions: ["MANAGE_CHANNELS"],
+            examples: ["unlock #general unhide"],
             args: [
                 {
                     key: "channel",

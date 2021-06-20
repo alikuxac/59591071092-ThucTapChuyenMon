@@ -1,5 +1,6 @@
 const Command = require("../../structures/Command");
-
+const { MessageEmbed } = require("discord.js");
+const { stripIndent } = require("common-tags");
 module.exports = class VCSetup extends Command {
     constructor(client) {
         super(client, {
@@ -10,11 +11,13 @@ module.exports = class VCSetup extends Command {
             guildOnly: true,
             userPermissions: ["ADMINISTRATOR"],
             clientPermissions: ["MANAGE_CHANNELS"],
+            examples: ["vcsetup log #voice-log", "vcsetup limit 10"],
             args: [
                 {
                     key: "action",
                     prompt: "What do you want to do?",
-                    type: "string"
+                    type: "string",
+                    default: "help"
                 },
                 {
                     key: "value",
@@ -27,6 +30,7 @@ module.exports = class VCSetup extends Command {
     }
 
     async run(message, { action, value }) {
+        const prefix = message.guild.commandPrefix ? message.guild.commandPrefix : this.client.commandPrefix;
         let VoiceSettings = this.client.provider.getGuild(message.guild.id, "voice");
 
         switch (action) {
@@ -104,6 +108,18 @@ module.exports = class VCSetup extends Command {
                 } catch (err) {
                     throw err;
                 }
+                break;
+            case "help":
+                const embed = new MessageEmbed()
+                    .setTitle("Master Channel Help")
+                    .setDescription(stripIndent`
+                ${prefix}vcsetup toggle: Change status of system.
+                ${prefix}vcsetup log: Set log channel for voice log.
+                ${prefix}vcsetup limit: Limit number of voice channels can be create.
+                `)
+                    .setColor("GREEN")
+                    .setTimestamp();
+                message.channel.send({ embed });
                 break;
             default:
                 break;

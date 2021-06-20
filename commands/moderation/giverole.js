@@ -11,6 +11,7 @@ module.exports = class GiveRoleCMD extends Command {
             aliases: ["grole"],
             clientPermissions: ["MANAGE_ROLES"],
             userPermissions: ["MANAGE_ROLES"],
+            examples: ["giverole @Alikuxac Moderator"],
             args: [
                 {
                     key: "member",

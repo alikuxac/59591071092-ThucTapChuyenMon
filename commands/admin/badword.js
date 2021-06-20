@@ -1,5 +1,6 @@
 const Command = require("../../structures/Command");
 const { MessageEmbed } = require("discord.js");
+const { stripIndent } = require("common-tags");
 
 module.exports = class BadWordCMD extends Command {
     constructor(client) {
@@ -9,11 +10,13 @@ module.exports = class BadWordCMD extends Command {
             group: "admin",
             description: "Bad word system",
             userPermissions: ["ADMINISTRATOR"],
+            examples: ["badword add f", "badword role @Admin"],
             args: [
                 {
                     key: "action",
                     prompt: "What do you want to do?",
-                    type: "string"
+                    type: "string",
+                    default: "help"
                 },
                 {
                     key: "value",
@@ -26,6 +29,7 @@ module.exports = class BadWordCMD extends Command {
     }
 
     async run(message, { action, value }) {
+        const prefix = message.guild.commandPrefix ? message.guild.commandPrefix : this.client.commandPrefix;
         let bwSettings = this.client.provider.getGuild(message.guild.id, "badword");
 
         switch (action) {
@@ -75,6 +79,7 @@ module.exports = class BadWordCMD extends Command {
                 break;
 
             case "add":
+                if (!bwSettings.status) return message.reply(`System is currently disabled`);
                 let bwListAdd = bwSettings.list;
                 if (!value) return message.say(`Give me a word please`);
                 const arrAdd = value.toLowerCase().split(" ");
@@ -93,7 +98,7 @@ module.exports = class BadWordCMD extends Command {
                 break;
 
             case "remove":
-
+                if (!bwSettings.status) return message.reply(`System is currently disabled`);
                 let bwListRemove = bwSettings.list;
                 if (!value) return message.say(`Give me a word please`);
                 const arrRemove = value.toLowerCase().split(" ");
@@ -113,11 +118,12 @@ module.exports = class BadWordCMD extends Command {
 
                 break;
             case "role":
+                if (!bwSettings.status) return message.reply(`System is currently disabled`);
                 let ignoreList = bwSettings.ignorerole;
                 if (!value) return message.reply("Give me role name or ID to ignore");
                 const role = this.client.registry.types.get("role").parse(value, message);
                 if (!role) return message.reply("Invalid Role");
-                if (!ignoreList.includes(role.id)){
+                if (!ignoreList.includes(role.id)) {
                     ignoreList.push(role.id)
                 } else {
                     const index = bwListRemove.indexOf(role.id);
@@ -143,7 +149,20 @@ module.exports = class BadWordCMD extends Command {
 
                 message.channel.send({ embed });
                 break;
-
+            case "help":
+                const embed = new MessageEmbed()
+                    .setTitle("Master Channel Help")
+                    .setDescription(stripIndent`
+                    ${prefix}badword reset: Reset settings.
+                    ${prefix}badword add: Add badword to list.
+                    ${prefix}badword remove: Remove badword from list.
+                    ${prefix}badword help: Show this embed.
+                    ${prefix}badword list: Show badword list.
+                    `)
+                    .setColor("GREEN")
+                    .setTimestamp();
+                message.channel.send({ embed });
+                break;
             default:
                 break;
         }

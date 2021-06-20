@@ -9,6 +9,7 @@ module.exports = class SeekCMD extends Command {
             description: 'Seek a song',
             userPermissions: ['SEND_MESSAGES'],
             clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
+            examples: ["seek 100"],
             args: [
                 {
                     key: 'time',

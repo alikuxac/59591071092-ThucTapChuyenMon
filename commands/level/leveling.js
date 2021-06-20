@@ -13,6 +13,7 @@ module.exports = class LevelingCMD extends Command {
             guildOnly: true,
             userPermissions: ["ADMINISTRATOR"],
             clientPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
+            examples: ["leveling set minxp 1", "leveling set maxxp 50"],
             args: [
                 {
                     key: "action",

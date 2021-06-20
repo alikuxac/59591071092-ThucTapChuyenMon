@@ -10,6 +10,7 @@ module.exports = class UnhideCMD extends Commando.Command {
             guildOnly: true,
             clientPermissions: ["MANAGE_CHANNELS"],
             userPermissions: ["MANAGE_CHANNELS"],
+            examples: ["unhide #general"],
             args: [
                 {
                     key: "channel",

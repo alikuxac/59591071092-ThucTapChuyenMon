@@ -11,7 +11,6 @@ module.exports = class CheckUpdateCMD extends Command {
             userPermissions: ['SEND_MESSAGES', "ADMINISTRATOR"],
             clientPermissions: ['SEND_MESSAGES'],
             ownerOnly: true,
-            hidden: true,
             aliases: ['update']
         })
     }
