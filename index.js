@@ -20,18 +20,23 @@ client.build();
 // Utility
 
 // Automatic check update from repository every 30s.
-setInterval(() => {
-    exec(`git pull origin master`, (error, stdout) => {
-        let response = (error || stdout);
-        if (!error) {
-            if (response.includes("Already up to date.")) {
-                //client.logger.log("Bot already up to date. No changes since last pull")
-            } else {
-                client.channels.cache.get(process.env.GITHUB_LOG).send("**[AUTOMATIC]** \nNew update on GitHub. Pulling. \n\nLogs: \n```" + response + "```" + "\n\n\n**Restarting bot**")
-                setTimeout(() => {
-                    process.exit();
-                }, 1000)
-            };
-        }
-    })
-}, 30000)
+function checkStatus() {
+    setInterval(() => {
+        exec(`git pull origin master`, (error, stdout) => {
+            let response = (error || stdout);
+            if (!error) {
+                if (response.includes("Already up to date.")) {
+                    //client.logger.log("Bot already up to date. No changes since last pull")
+                } else {
+                    client.channels.cache.get(process.env.GITHUB_LOG).send("**[AUTOMATIC]** \nNew update on GitHub. Pulling. \n\nLogs: \n```" + response + "```" + "\n\n\n**Restarting bot**")
+                    setTimeout(() => {
+                        process.exit();
+                    }, 1000)
+                };
+            }
+        })
+    }, 30000)
+}
+
+// Only run if GITHUB_LOG has value
+process.env.GITHUB_LOG && checkStatus();
