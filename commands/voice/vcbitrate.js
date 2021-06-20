@@ -15,7 +15,7 @@ module.exports = class VCBitrateCMD extends Command {
                     prompt: "what name do you want to change?",
                     type: "integer",
                     validate: bitrate => {
-                        if (bitrate.length > 96 || bitrate.length < 8) return "Bitrate must be between 8 and 96";
+                        if (bitrate > 96 || bitrate < 8) return "Bitrate must be between 8 and 96";
                         return true
                     }
                 }
