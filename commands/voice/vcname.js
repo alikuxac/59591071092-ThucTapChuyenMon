@@ -45,6 +45,7 @@ module.exports = class VCNameCMD extends Command {
                     }
                 }
             ).then(val => {
+                message.channel.send(`Updated channel name sucessfully`);
                 VoiceLog && message.guild.channels.cache.get(VoiceLog).send({
                     embed: new MessageEmbed()
                         .setAuthor(`${message.author.username}`)
