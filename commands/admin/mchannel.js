@@ -140,7 +140,7 @@ module.exports = class MChannelCMD extends Command {
                     ${prefix}mchannel create: Create a new master channel.
                     ${prefix}mchannel show: Show all master channel in current guild.
                     ${prefix}mchannel help: Show this embed.
-                    ${prefix}mcahnnel ID property value: Change setting of master channel. (ID can found at ${prefix}mchannel show).
+                    ${prefix}mchannel ID property value: Change setting of master channel. (ID can found at ${prefix}mchannel show).
                     
                     **You must enable voice system to run above sub command**`)
                 .setColor("GREEN")
@@ -188,14 +188,14 @@ module.exports = class MChannelCMD extends Command {
                         return message.say("Update name successful");
                     }).catch(err => {
                         console.error(err);
-                        message.reply("error while update channel name of amster channel");
+                        message.reply("error while update channel name of master channel");
                     })
                     break;
                 case "limit":
                 case "userlimit":
                     if (!value) return message.reply("please input any value");
                     const limitNum = parseInt(value);
-                    if (!isNaN(limitNum)) return message.reply("wrong input type");
+                    if (isNaN(limitNum)) return message.reply("wrong input type");
                     if (limitNum < 0 || limitNum > 99) return message.reply("you can set user limit between 0 and 99");
                     if (limitNum === findMaster.userLimit) return message.reply("nothing change");
                     this.client.provider.getVCCollection().updateOne(
@@ -250,7 +250,7 @@ module.exports = class MChannelCMD extends Command {
                 case "bitrate":
                     if (!value) return message.reply("please input any value");
                     const bitrateNum = parseInt(value);
-                    if (!isNaN(bitrateNum)) return message.reply("wrong input type");
+                    if (isNaN(bitrateNum)) return message.reply("wrong input type");
                     if (bitrateNum < 8 || bitrateNum > 96) return message.reply("you can set user limit between 8 and 96");
                     this.client.provider.getVCCollection().updateOne(
                         {
@@ -271,11 +271,11 @@ module.exports = class MChannelCMD extends Command {
                         embed: new MessageEmbed()
                             .setTitle(`Master Channel Setting Help`)
                             .setDescription(stripIndent`
-                                ${prefix}mcahnnel ID name name: Change default name
-                                ${prefix}mcahnnel ID limit/userlimit number: Change user limit of channel
-                                ${prefix}mcahnnel ID copyperm: Toggle copy permission from master channel
-                                ${prefix}mcahnnel ID pushtotalk/ptt: Toggle pushtotalk for master channel
-                                ${prefix}mcahnnel ID bitrate number: change bitrate of master channel
+                                ${prefix}mchannel ID name name: Change default name
+                                ${prefix}mchannel ID limit/userlimit number: Change user limit of channel
+                                ${prefix}mchannel ID copyperm: Toggle copy permission from master channel
+                                ${prefix}mchannel ID pushtotalk/ptt: Toggle pushtotalk for master channel
+                                ${prefix}mchannel ID bitrate number: change bitrate of master channel
                             `)
                             .setColor("GREEN")
                             .setTimestamp()
