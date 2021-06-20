@@ -24,9 +24,9 @@ module.exports = class VCPushtotalkCMD extends Command {
         if (message.author.id !== VoiceSearch.owner || !message.member.hasPermission("ADMINISTRATOR")) return message.reply("Only owner of this voice can run this command");
         let status = !VoiceSearch.pushtotalk;
         if (status) {
-            await channel.overwritePermissions([{ id: newState.guild.id, deny: ["USE_VAD"] }]);
+            await channel.overwritePermissions([{ id: message.guild.id, deny: ["USE_VAD"] }]);
         } else {
-            await channel.overwritePermissions([{ id: newState.guild.id, allow: ["USE_VAD"] }]);
+            await channel.overwritePermissions([{ id: message.guild.id, allow: ["USE_VAD"] }]);
         }
 
         this.client.provider.getVCCollection().updateOne(
