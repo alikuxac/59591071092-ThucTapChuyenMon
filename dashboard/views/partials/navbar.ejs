@@ -30,6 +30,9 @@
               <img style="border-radius: 50%;" onerror="this.src = 'https://discordapp.com/assets/322c936a8c8be1b803cd94861bdfa868.png';" src=<%=user.avatarURL%> width="25" height="25" class="d-inline-block align-top" alt=""> <%=user.username%>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <% if (req.client.owners.find(ele => ele.id === req.user.id)) { %>
+                <a class="dropdown-item" href="/admin">Admin</a>
+              <% } %>
               <a class="dropdown-item" href="/manage">Manage server</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="/authorize/logout">Log out</a>

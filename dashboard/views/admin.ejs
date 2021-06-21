@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title><%- pageTitle %></title>
+        <%- include('partials/cdn.ejs') %>
+        <style>
+          #myBtn {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+#myBtn:hover {
+  background-color: #555;
+}
+        </style>
+    </head>
+    <body>
+        <%- include('partials/navbar.ejs') %>
+        <div class="container">
+
+          <%- include('partials/top.ejs') %>
+
+            <br>
+            <h2>Manage server</h2>
+<p>
+    Below you can see all servers on which <em>you have permissions</em>. To manage the server, sometimes you need to <strong>invite a bot to it</strong>. However, if it is already there, <strong>do it right!</strong></p>
+    <hr>
+        <p>
+            <div class="flex-container">
+              <% for(let guilds in dclient.guilds.cache.array()){ %> 
+                <div class="media">
+                  <div class="media-left">
+                    <a href="#">
+                      <img style="height:100;width:100;border-radius: 50%;"class="media-object" onerror= "this.onerror=null;this.src = 'https://discordapp.com/assets/322c936a8c8be1b803cd94861bdfa868.png';" src="https://cdn.discordapp.com/icons/<%=dclient.guilds.cache.array()[guilds].id%>/<%=dclient.guilds.cache.array()[guilds].icon%>.png" alt="...">
+                    </a>
+                  </div>
+                  <div class="media-body">
+                    <h4 class="media-heading" style="margin-left: 10px;"><%=dclient.guilds.cache.array()[guilds].name%></h4>
+                    <a href="/manage/<%=dclient.guilds.cache.array()[guilds].id%>" role="button" style="margin-left: 10px;" class="btn btn-secondary btn-lg">Manage bot</a>
+                  </div>
+                </div>
+                <br>
+              <% } %> 
+        
+            
+            </p>
+            </div>
+        </div>
+        <%- include('partials/cdn_body.ejs') %>
+    </body>
+</html>

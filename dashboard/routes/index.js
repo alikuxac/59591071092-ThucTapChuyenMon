@@ -14,6 +14,7 @@ index_route.get("/discord", function (req, res) {
 })
 index_route.use('/manage', require('./manage'))
 index_route.use("/authorize", require("./authorize"));
+index_route.use("/admin", require("./admin"));
 index_route.get("/invite", (req, res) => {
     res.redirect(`https://discord.com/oauth2/authorize?client_id=${process.env.CLIENT_ID}6&permissions=8&scope=bot+applications.commandsresponse_type=code&redirect_uri=${process.env.CALLBACK_URL}`)
 })

@@ -20,13 +20,13 @@ manage_route.get("/:id", (req, res, next) => {
     const serverID = req.serverID
     const guild = req.client.guilds.cache.get(req.serverID);
     const prefix = req.client.provider.getGuild(serverID, "prefix", process.env.PREFIX)
-    return res.render('manage/main', { pageTitle: "Dashboard", serverID, user: req.user, guild: req.guild, dclient: req.client, prefix });
+    return res.render('manage/main', { pageTitle: "Dashboard", serverID, user: req.user, guild: req.guild, dclient: req.client, prefix, req });
 })
 manage_route.post("/:id", async (req, res, next) => {
     const serverID = req.serverID
     await req.client.provider.setGuild(serverID, "prefix", req.body.prefix);
     req.guild.commandPrefix = req.body.prefix;
-    return res.render('manage/main', { pageTitle: "Dashboard", serverID, user: req.user, guild: req.guild, dclient: req.client, prefix: req.body.prefix });
+    return res.render('manage/main', { pageTitle: "Dashboard", serverID, user: req.user, guild: req.guild, dclient: req.client, prefix: req.body.prefix, req: req });
 })
 
 manage_route.get("/:id/voice", (req, res, next) => {
