@@ -4,7 +4,7 @@ index_route.get("/github", (req, res) => {
     res.redirect("https://github.com/alikuxac");
 })
 index_route.get("/info", (req, res) => { 
-    res.redirect("https://status.alikuxac.me");
+    res.redirect("https://info.alikuxac.me");
 })
 index_route.get("/status", (req, res) => { 
     res.redirect("https://status.alikuxac.me");
