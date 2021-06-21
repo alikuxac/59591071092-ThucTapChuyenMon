@@ -38,7 +38,7 @@ module.exports = async (client, oldState, newState) => {
                     VIEW_CHANNEL: true
                 }
             );
-            if (VoiceSearch.pushtotalk) await CopyChannel.updateOverwrite(newState.guild.id, { USE_VAD: false });
+            if (VoiceSearchJoin.pushtotalk) await CopyChannel.updateOverwrite(newState.guild.id, { USE_VAD: false });
             client.provider.getVCCollection().insertOne({
                 channelID: CopyChannel.id,
                 guildID: newState.guild.id,
@@ -77,7 +77,7 @@ module.exports = async (client, oldState, newState) => {
                     VIEW_CHANNEL: true
                 }
             );
-            if (VoiceSearch.pushtotalk) await NewChannel.updateOverwrite(newState.guild.id, { USE_VAD: false });
+            if (VoiceSearchJoin.pushtotalk) await NewChannel.updateOverwrite(newState.guild.id, { USE_VAD: false });
             client.provider.getVCCollection().insertOne({
                 channelID: NewChannel.id,
                 guildID: newState.guild.id,
