@@ -35,22 +35,30 @@ Giảng viên: Thầy Nguyễn Lê Minh. 
 - Đăng nhâp: Người dùng muốn vảo hệ thống phải tiến hành đăng nhâp, nếu không có tài khoản thì tiến hành đăng kí tài khoản discord
 2. Chủ sở hữu con bot
 - Quản lý các cài đặt của user và tất cả máy chủ 
+- Quản lý thông tin user 
 3. Bot
 - Chống user nhắn tin những từ ngữ không phù hợp
 - Phát nhạc từ Youtube, SoundCloud, … (thông qua thư viện)
+- Bảo mật, kiểm tra token/login
 
 ## Phần 3: Các chức năng chưa hoàn thành:
 1. User
 - Quản lý chống spam tin nhắn (anti spam)
 2. Chủ sở hữu con bot
 - Quản lý log
-- Quản lý thông tin user 
 3. Bot
-- Bảo mật, kiểm tra token/login
 - Lưu từng tin nhắn vào cơ sở dữ liệu PostgreSQL (hoặc MySQL)
 - Chống spam
 
 ## Hướng dẫn sử dụng:
-Cập nhật sau. 
+1.	Đối với Bot: 
+	1.	Tạo tài khoản Discord và máy chủ nếu chưa có
+	2.	Tạo bot: làm theo hướng dẫn https://discordjs.guide/preparations/setting-up-a-bot-application.html
+	3.	Sau khi tạo thành công, ấn vào tab Bot, bật PRESENCE INTENT và SERVER MEMBERS INTENT
+	4.	Thêm bot vào máy chủ: làm theo hướng dẫn https://discordjs.guide/preparations/adding-your-bot-to-servers.html
+2.	Đối với mã nguồn
+	1.	Copy và đổi tên file .env.example thành .env và làm theo hướng dẫn
+	2.	Mở Command Prompt hoặc terminal trong thư mục đó và nhập lệnh: node .
+
 
 Xin cám ơn!
